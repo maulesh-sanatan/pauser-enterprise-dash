@@ -1,0 +1,251 @@
+import { post, put } from "@/utils/axios";
+import { useFormik } from "formik";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+const ManageUserEdit = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  console.log(id);
+  const [sites, setSites] = useState();
+  const [selectedSites, setSelectedSites] = useState([]);
+  const [userRes, setUserRes] = useState([]);
+  const [dynSite, setDynSite] = useState([]);
+
+  useEffect(() => {
+    try {
+      (async () => {
+        console.log(id);
+
+        const response = await fetch(`/api/manageuser/getedit?id=${id}`);
+        const res = await response.json();
+        console.log(res, "response");
+        setUserRes(res.data);
+        setDynSite(res.sites);
+      })();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [id]);
+
+  async function editUser(values) {
+    console.log(values, "byvalues");
+
+    const response = await put(`/api/manageuser?id=${id}`, values);
+
+    const res = await response.json();
+    console.log(res, "res");
+
+    if (res.status === true) {
+      alert("Data updated succesfully");
+      router.push("/manageuser/list");
+      resetForm();
+    }
+
+    if (res.status === false) {
+      alert(res.message);
+    }
+  }
+  const formstate = {
+    name: userRes?.name,
+    email: userRes?.email,
+    contact_no: userRes?.contact_no,
+    username: userRes?.username,
+  };
+  console.log(formstate);
+
+  const initialvalues = {
+    name: "",
+    email: "",
+    password: "",
+    contact_no: "",
+    username: "",
+  };
+  const {
+    errors,
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    touched,
+    resetForm,
+  } = useFormik({
+    initialValues: formstate,
+    enableReinitialize: true,
+    // validationSchema: Companyschema,
+
+    onSubmit: (values) => {
+      console.log(values, "values of useer");
+      const data = {
+        ...values,
+        sites: selectedSites,
+      };
+
+      editUser(data);
+    },
+  });
+  const CancleFun = () => {
+    router.push("/manageuser/list");
+  };
+
+  return (
+    <div
+      style={{ backgroundColor: "rgba(249, 249, 251, 1)" }}
+      className=" min-h-screen"
+    >
+      <div className="flex">
+        <div className="lg:w-[300px] sm:w-0"></div>
+
+        <div className="flex-1 ">
+          <div className="lg:h-[77px] md:h-[66px] border shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl mt-3 ms-7 mr-7 bg-white border-b border-gray-200 px-6 py-3">
+            <div className="flex justify-between">
+              {" "}
+              <div className="flex   ml-12 md:ml-10 sm:ml-10 lg:ml-0 lg:mt-0 font-bold ">
+                <p
+                  style={{ color: "#697A8D" }}
+                  className="text-xl mt-3 text-[15px] "
+                >
+                  Manage User
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-14 ms-7 mr-7  shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl border border-gray-200  bg-white  ">
+            <div className="flex p-6 justify-between">
+              <h3
+                className="font-semibold ms-2 text-xl "
+                style={{ color: "#566A7F" }}
+              >
+                Edit User
+              </h3>
+              <p style={{ color: "#A1ACB8" }}>Defalt label</p>
+            </div>
+            <div className="p-7 -mt-4">
+              <form
+                onSubmit={handleSubmit}
+                method="POST"
+                enctype="multipart/form-data"
+              >
+                <div>
+                  <div className="mt-3">
+                    <label
+                      htmlFor="username"
+                      className=" text-sm"
+                      style={{ color: "#566A7F" }}
+                    >
+                      USERNAME
+                    </label>
+                    <p>{formstate?.username}</p>
+                  </div>
+
+                  <div className="mt-3">
+                    <label
+                      htmlFor="email"
+                      className=" text-sm"
+                      style={{ color: "#566A7F" }}
+                    >
+                      EMAIL
+                    </label>
+                    <div className="">
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        autoComplete="email"
+                        required
+                        className="appearance-none rounded-md  block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                        placeholder="Email"
+                      />
+                      <div>
+                        {touched.email && errors.email && (
+                          <p className="text-rose-500">{errors.email}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-3">
+                    <label
+                      htmlFor="name"
+                      className=" text-sm"
+                      style={{ color: "#566A7F" }}
+                    >
+                      Full NAME
+                    </label>
+                    <div>
+                      <input
+                        id="name"
+                        name="name"
+                        type="name"
+                        value={values.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        autoComplete="name"
+                        required
+                        className="appearance-none rounded-md  block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                        placeholder="Company name"
+                      />
+                      <div>
+                        {touched.name && errors.name && (
+                          <p className="text-rose-500">{errors.name}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-3">
+                    <label
+                      htmlFor="contact_no"
+                      className=" text-sm"
+                      style={{ color: "#566A7F" }}
+                    >
+                      PHONE NO
+                    </label>
+                    <input
+                      id="contact_no"
+                      name="contact_no"
+                      type="text"
+                      value={values.contact_no}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      autoComplete="current-password"
+                      required
+                      className="appearance-none rounded-md  block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                      placeholder="Phone no"
+                    />
+                    <div>
+                      {touched.contact_no && errors.contact_no && (
+                        <p className="text-rose-500">{errors.contact_no}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className=" ms-7 mt-5 flex">
+                    <button
+                      type="submit"
+                      className="text-white bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-orange-300 dark:focus:ring-orange-800 shadow-lg shadow-orange-500/50 dark:shadow-lg dark:shadow-orange-800/80 font-medium rounded-lg text-sm px-7 py-2.5 text-center me-2 mb-2"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      onClick={CancleFun}
+                      className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-7 py-2.5 text-center me-2 mb-2"
+                    >
+                      Cancle
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ManageUserEdit;
