@@ -2,6 +2,7 @@ import { asyncErrorHandler } from "@/utils/AsyncErrorHandler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import db from "../../../database/dbConnection";
+import { createAppUsageTable, createHRDumpTable } from "@/database/migrations";
 
 export default asyncErrorHandler(async function handler(req, res, file) {
   if (req.method === "GET") {
@@ -45,8 +46,7 @@ export default asyncErrorHandler(async function handler(req, res, file) {
         limit: pageSize,
       },
     });
-  }
-  else if (req.method === "POST") {
+  } else if (req.method === "POST") {
     const { name, email, password, username, domain } = req.body;
     console.log(req.body, "req.body");
 
@@ -75,23 +75,28 @@ export default asyncErrorHandler(async function handler(req, res, file) {
 
       const [result] = await db.query(
         `INSERT INTO company (
-          company_name, email, password, username, domain_name
-        ) VALUES (?, ?, ?, ?, ?)`,
-        [name, email, hashedPassword, username, domain]
+          company_name, email, password, username, domain_name, role
+        ) VALUES (?, ?, ?, ?, ?, ?)`,
+        [name, email, hashedPassword, username, domain, "admin"]
       );
 
       const [insertedData] = await db.query(
         "SELECT * FROM company WHERE id = ?",
         [result.insertId]
       );
+      const companyId = result.insertId;
+      const tableName = `${companyId}_app_usage`;
+      const hrTablename = `${companyId}_hr_dump`;
+
+      await createAppUsageTable(tableName);
+      await createHRDumpTable(hrTablename);
 
       res.status(200).json({ status: true, user: insertedData, token });
     } catch (error) {
       console.error("Error processing request:", error);
       res.status(500).json({ status: false, message: "Internal Server Error" });
     }
-  }
-  else if (req.method === "PUT") {
+  } else if (req.method === "PUT") {
     const Id = req.query.id;
     console.log(Id);
 

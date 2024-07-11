@@ -1,5 +1,5 @@
 import { post } from "@/utils/axios";
-import { LogInschema } from "@/validations/LoginValidation";
+
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -42,7 +42,7 @@ const LogIn = () => {
     resetForm,
   } = useFormik({
     initialValues: initialvalues,
-    validationSchema: LogInschema,
+    // validationSchema: LogInschema,
 
     onSubmit: (values) => {
       LoginUser(values);

@@ -240,7 +240,7 @@ const List = () => {
                             {staffMember?.username}
                           </td>
                           <td className="px-6 py-3 whitespace-nowrapfont-normal text-[14px] font-normal text-gray-800 dark:text-gray-200">
-                            {staffMember?.domain_name}
+                            {staffMember?.domain_name.split(".")[0]}
                           </td>
 
                           <td className="px-6 border-l border-gray-200 py-4 w-28 whitespace-nowrapfont-normal text-end font-normal ">

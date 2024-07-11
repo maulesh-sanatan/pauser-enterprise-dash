@@ -6,84 +6,63 @@ import { calculatePageRange } from "@/utils/FrontendFunctions";
 
 const Dashboard = () => {
   const router = useRouter();
-  const [company, setCompany] = useState();
+  const [counts, setCounts] = useState();
   const [loading, setLoading] = useState(true);
-  const [pages, setPages] = useState();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [showClearBox, setShowClearBox] = useState(false);
-  const [triggerSearch, setTriggerSearch] = useState(false);
+
+  const [companies, setCompanies] = useState([]);
+  const [selectedCompany, setSelectedCompany] = useState("");
+  const companyId = localStorage.getItem("UserId");
+  const role = localStorage.getItem("Role");
+  console.log(selectedCompany);
 
   useEffect(() => {
-    try {
-      (async () => {
-        const data = await fetch(
-          `/api/company?page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}`
-        );
-        const res = await data.json();
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/company/getcompanynames`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const res = await response.json();
+        console.log(res.data);
 
-        console.log(res, "res");
-        setCompany(res.data);
-        setPages(res);
-      })();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }, [currentPage, itemsPerPage, triggerSearch, searchTerm]);
-
-  const ToForm = () => {
-    router.push("/company/form");
-  };
-  const editCompany = async (values) => {
-    console.log(values, "valuesssss");
-    const _id = values?.id;
-    router.push(`/company/form/edit/${_id}`);
-  };
-
-  async function LoginUser(values) {
-    console.log(values, "byvalues");
-    const data = {
-      email: values?.email,
-      password: values.password,
-      role: "super admin",
+        const uniqueCompanies = res.data.reduce((acc, company) => {
+          if (!acc.some((c) => c.id === company.id)) {
+            acc.push(company);
+          }
+          return acc;
+        }, []);
+        setCompanies(uniqueCompanies);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    const response = await post("/api/login", data);
+    fetchData();
+  }, [loading]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const id = role === "super admin" ? selectedCompany : companyId;
+        const response = await fetch(
+          `/api/dashboard?companyId=${parseInt(id)}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const res = await response.json();
+        console.log(res);
+        setCounts(res);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, [selectedCompany]);
 
-    const res = await response.json();
-    console.log(res, "res");
-
-    if (res.status === true) {
-      localStorage.setItem("Role", res?.user[0].user_group);
-      localStorage.setItem("UserId", res?.user[0].id);
-      router.reload();
-      router.push("/dashboard");
-    }
-
-    if (res.status === false) {
-      alert(res.message);
-    }
-  }
-  // PAGINATION COMPANY
-  const { startPage, endPage } = calculatePageRange(pages, currentPage);
-
-  // SEARCH STAFF
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-    setCurrentPage(1);
-    setShowClearBox(true);
-  };
-  const clearSearch = () => {
-    setSearchTerm("");
-
-    performSearch();
-    setShowClearBox(false);
-  };
-  const performSearch = () => {
-    setTriggerSearch(true);
+  const handleSelectChange = (event) => {
+    setSelectedCompany(event.target.value);
   };
 
   return (
@@ -109,6 +88,37 @@ const Dashboard = () => {
                     Dashboard
                   </p>
                 </div>
+              </div>
+
+              <div className="mt-10 ms-7 mr-7 p-4  shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl border border-gray-200  bg-white  ">
+                {role === "super admin" && (
+                  <form>
+                    <div className="flex items-center">
+                      <label htmlFor="company-select">Select a company:</label>
+                      <select
+                        id="company-select"
+                        value={selectedCompany}
+                        onChange={handleSelectChange}
+                        className="w-52 rounded-md bg-white block px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      >
+                        <option value="">--Please choose an option--</option>
+                        {companies.map((company) => (
+                          <option key={company.id} value={company.id}>
+                            {company.company_name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </form>
+                )}
+                {loading ? (
+                  <p>Loading...</p>
+                ) : (
+                  <div>
+                    <p>Total Logins: {counts?.totalLogins}</p>
+                    <p>Total Hr: {counts?.totalHrs}</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
