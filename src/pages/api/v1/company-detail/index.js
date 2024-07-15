@@ -46,7 +46,7 @@ export default asyncErrorHandler(async function handler(req, res) {
             return res.status(200).json({
               success: true,
               message: "User data saved successfully",
-              data: { userId: insertResult.id, comapny_id: comp_id, token: token },
+              data: { userId: insertResult.insertId, comapny_id: comp_id, token: token },
             });
           }
           // db.query(`SELECT * FROM ${tableName} WHERE email = ?`, [email], (err, rows) => {
