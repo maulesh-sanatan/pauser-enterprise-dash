@@ -88,10 +88,7 @@ const ManageUserList = () => {
   };
 
   return (
-    <div
-      style={{ backgroundColor: "rgba(249, 249, 251, 1)" }}
-      className=" min-h-screen"
-    >
+    <div style={{ backgroundColor: "#ffe8dd" }} className=" min-h-screen">
       <div className="flex">
         <div className="lg:w-[300px] sm:w-0"></div>
 
@@ -99,7 +96,10 @@ const ManageUserList = () => {
           <Loader />
         ) : (
           <div className="flex-1 ">
-            <div className="lg:h-[77px] md:h-[66px] border shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl mt-3 ms-7 mr-7 bg-white border-b border-gray-200 px-6 py-3">
+            <div
+              style={{ backgroundColor: "#fef1eb" }}
+              className="lg:h-[77px] md:h-[66px] border shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl mt-3 ms-7 mr-7  border-b border-gray-200 px-6 py-3"
+            >
               <div className="flex justify-between">
                 {" "}
                 <div className="flex  text-xl ml-12 md:ml-10 sm:ml-10 lg:ml-0 lg:mt-0 font-bold ">
@@ -115,9 +115,13 @@ const ManageUserList = () => {
             <div className="flex justify-between mt-5">
               <div className=" ms-7">
                 <div className="flex">
-                  <div className=" flex items-center w-full h-12 rounded-lg  focus-within:shadow-lg bg-white overflow-hidden">
+                  <div
+                    style={{ backgroundColor: "#fef1eb" }}
+                    className=" flex items-center w-full h-12 rounded-lg  focus-within:shadow-lg bg-white overflow-hidden"
+                  >
                     <div>
                       <input
+                        style={{ backgroundColor: "#fef1eb" }}
                         className="peer ms-3 h-full w-full outline-none font-normal text-gray-700 pr-2"
                         value={searchTerm}
                         onChange={handleSearch}
@@ -159,7 +163,10 @@ const ManageUserList = () => {
             </div>
 
             <div>
-              <div className="mt-5 ms-7 mr-7 p-4  shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl border border-gray-200  bg-white  ">
+              <div
+                style={{ backgroundColor: "#fef1eb" }}
+                className="mt-5 ms-7 mr-7 p-4  shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl border border-gray-200    "
+              >
                 <div className="flex justify-between">
                   <h3
                     className="font-semibold ms-2 text-xl "
@@ -171,7 +178,7 @@ const ManageUserList = () => {
                     <button
                       type="button"
                       onClick={ToForm}
-                      className="text-gray-900 bg-gradient-to-r bg-lime-300 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300  shadow-lg  dark:shadow-lg  font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                      className="text-white bg-gradient-to-r bg-orange-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-orange-300 dark:focus:ring-orange-800 shadow-lg shadow-orange-500/50 dark:shadow-lg dark:shadow-orange-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                     >
                       Add User
                     </button>
@@ -210,6 +217,13 @@ const ManageUserList = () => {
                             style={{ color: "#566A7F" }}
                             className="px-6 py-5 text-start text-[16px] font-semibold "
                           >
+                            Company Name
+                          </th>
+                          <th
+                            scope="col"
+                            style={{ color: "#566A7F" }}
+                            className="px-6 py-5 text-start text-[16px] font-semibold "
+                          >
                             ACTION
                           </th>
                         </tr>
@@ -236,6 +250,10 @@ const ManageUserList = () => {
                           </td>
                           <td className="px-6 py-3 whitespace-nowrapfont-normal text-[14px] font-normal text-gray-800 dark:text-gray-200">
                             {staffMember?.contact_no}
+                          </td>
+                          <td className="px-6 py-3 whitespace-nowrapfont-normal text-[14px] font-normal text-gray-800 dark:text-gray-200">
+                            {staffMember?.email.split("@")[0].split(".")[1] ||
+                              "-"}
                           </td>
 
                           <td className="px-6 border-l border-gray-200 py-4 w-28 whitespace-nowrapfont-normal text-end font-normal ">
@@ -277,7 +295,7 @@ const ManageUserList = () => {
                 onClick={() => setCurrentPage(startPage + index)}
                 className={`mx-1 text-black px-2 py-1 rounded ${
                   currentPage === startPage + index
-                    ? "bg-blue-300 text-white"
+                    ? "bg-orange-400 text-black"
                     : ""
                 }`}
               >

@@ -1,4 +1,6 @@
 import { post } from "@/utils/axios";
+import { Companyschema } from "@/validations/CompanyFormValidation";
+import { UservalidationSchema } from "@/validations/userValidation";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -7,7 +9,7 @@ const ManageUserForm = () => {
   const router = useRouter();
   const [sites, setSites] = useState();
   const [selectedSites, setSelectedSites] = useState([]);
- 
+
   async function CreateUser(values) {
     console.log(values, "byvalues");
     const id = await localStorage.getItem("UserId");
@@ -46,7 +48,7 @@ const ManageUserForm = () => {
   } = useFormik({
     initialValues: initialvalues,
 
-    // validationSchema: Companyschema,
+    validationSchema: UservalidationSchema,
 
     onSubmit: (values) => {
       console.log(values, "values of useer");
@@ -63,15 +65,15 @@ const ManageUserForm = () => {
   };
 
   return (
-    <div
-      style={{ backgroundColor: "rgba(249, 249, 251, 1)" }}
-      className=" min-h-screen"
-    >
+    <div style={{ backgroundColor: "#ffe8dd" }} className=" min-h-screen">
       <div className="flex">
         <div className="lg:w-[300px] sm:w-0"></div>
 
         <div className="flex-1 ">
-          <div className="lg:h-[77px] md:h-[66px] border shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl mt-3 ms-7 mr-7 bg-white border-b border-gray-200 px-6 py-3">
+          <div
+            style={{ backgroundColor: "#fef1eb" }}
+            className="lg:h-[77px] md:h-[66px] border shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl mt-3 ms-7 mr-7  border-b border-gray-200 px-6 py-3"
+          >
             <div className="flex justify-between">
               {" "}
               <div className="flex   ml-12 md:ml-10 sm:ml-10 lg:ml-0 lg:mt-0 font-bold ">
@@ -85,7 +87,10 @@ const ManageUserForm = () => {
             </div>
           </div>
 
-          <div className="mt-14 ms-7 mr-7  shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl border border-gray-200  bg-white  ">
+          <div
+            style={{ backgroundColor: "#fef1eb" }}
+            className="mt-14 ms-7 mr-7  shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl border border-gray-200    "
+          >
             <div className="flex p-6 justify-between">
               <h3
                 className="font-semibold ms-2 text-xl "
@@ -102,9 +107,6 @@ const ManageUserForm = () => {
                 enctype="multipart/form-data"
               >
                 <div>
-                
-               
-
                   <div className="mt-3">
                     <label
                       htmlFor="username"
@@ -246,7 +248,7 @@ const ManageUserForm = () => {
                   <div className=" ms-7 mt-5 flex">
                     <button
                       type="submit"
-                      className="text-white bg-gradient-to-r bg-blue-500  hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg  font-medium rounded-lg text-sm px-7 py-2.5 text-center me-2 mb-2"
+                      className="text-white bg-gradient-to-r bg-orange-500  hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-orange-300 dark:focus:ring-orange-800 shadow-lg  font-medium rounded-lg text-sm px-7 py-2.5 text-center me-2 mb-2"
                     >
                       Save
                     </button>

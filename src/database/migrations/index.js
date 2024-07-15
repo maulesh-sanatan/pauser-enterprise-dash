@@ -68,3 +68,200 @@ export async function createHRDumpTable(tableName) {
     console.error("Error creating HR Dump table:", error);
   }
 }
+export async function createAppAccessLogTable(tableName) {
+  try {
+    await db.query(`
+    CREATE TABLE ${tableName} (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      user_id INT DEFAULT NULL,
+      activity_time VARCHAR(255) DEFAULT NULL,
+      activity_date VARCHAR(255) DEFAULT NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP NULL DEFAULT NULL
+    )
+      `);
+    console.log("HR Dump table created successfully");
+  } catch (error) {
+    console.error("Error creating HR Dump table:", error);
+  }
+}
+export async function createHeartRateSessionsTable(tableName) {
+  try {
+    await db.query(`
+      CREATE TABLE ${tableName} (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT DEFAULT NULL,
+        sessionId BIGINT DEFAULT NULL,
+        max_heart_rate BIGINT DEFAULT NULL,
+        min_heart_rate BIGINT DEFAULT NULL,
+        latitude DOUBLE DEFAULT NULL,
+        longitude DOUBLE DEFAULT NULL,
+        mood_type LONGTEXT COLLATE utf8mb4_general_ci,
+        step_count BIGINT DEFAULT NULL,
+        pause_count BIGINT DEFAULT NULL,
+        glucose INT DEFAULT NULL,
+        blood_pressure INT DEFAULT NULL,
+        oxygen INT DEFAULT NULL,
+        app_usage LONGTEXT COLLATE utf8mb4_general_ci,
+        note LONGTEXT COLLATE utf8mb4_general_ci,
+        note_info_1 LONGTEXT COLLATE utf8mb4_general_ci,
+        tag_name LONGTEXT COLLATE utf8mb4_general_ci,
+        tag_id BIGINT DEFAULT NULL,
+        archive_reason LONGTEXT COLLATE utf8mb4_general_ci,
+        signal_hr_detail LONGTEXT COLLATE utf8mb4_general_ci,
+        is_active BIGINT DEFAULT NULL,
+        is_deleted BIGINT DEFAULT NULL,
+        is_updated BIGINT DEFAULT NULL,
+        is_updated_on_server BIGINT DEFAULT NULL,
+        time_stamp BIGINT DEFAULT NULL,
+        created_time_stamp BIGINT DEFAULT NULL,
+        last_updated_time_stamp BIGINT DEFAULT NULL,
+        start_time_stamp BIGINT DEFAULT NULL,
+        end_time_stamp BIGINT DEFAULT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP NULL DEFAULT NULL,
+        deleted_at TIMESTAMP NULL DEFAULT NULL
+    );
+    
+      `);
+    console.log("HR Dump table created successfully");
+  } catch (error) {
+    console.error("Error creating HR Dump table:", error);
+  }
+}
+export async function createBreathDataTable(tableName) {
+  try {
+    await db.query(`
+    CREATE TABLE ${tableName} (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      user_id INT DEFAULT NULL,
+      breathId INT DEFAULT NULL,
+      breath_perform_time INT DEFAULT NULL,
+      breath_start_hr INT DEFAULT NULL,
+      breath_end_hr INT DEFAULT NULL,
+      breath_low_hr INT DEFAULT NULL,
+      breath_day_avg_hr INT DEFAULT NULL,
+      breath_avg_hr INT DEFAULT NULL,
+      breath_time INT DEFAULT NULL,
+      breath_type LONGTEXT,
+      breath_pattern LONGTEXT,
+      breath_cycle LONGTEXT,
+      breath_cycle_length INT DEFAULT NULL,
+      breath_inhale INT DEFAULT NULL,
+      breath_exhale INT DEFAULT NULL,
+      breath_hold INT DEFAULT NULL,
+      dump_hr_details LONGTEXT,
+      prana_flow_details LONGTEXT,
+      is_breath_finished INT DEFAULT NULL,
+      is_updated INT DEFAULT NULL,
+      time_stamp TEXT,
+      created_time_stamp TEXT,
+      last_updated_time_stamp TEXT,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP NULL DEFAULT NULL,
+      deleted_at TIMESTAMP NULL DEFAULT NULL
+  );
+  
+    
+      `);
+    console.log("HR Dump table created successfully");
+  } catch (error) {
+    console.error("Error creating HR Dump table:", error);
+  }
+}
+export async function createMeditationDataTable(tableName) {
+  try {
+    await db.query(`
+   
+    CREATE TABLE ${tableName} (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      user_id INT DEFAULT NULL,
+      sessionId BIGINT DEFAULT NULL,
+      session_perform_time BIGINT DEFAULT NULL,
+      session_start_hr BIGINT DEFAULT NULL,
+      session_end_hr BIGINT DEFAULT NULL,
+      session_low_hr BIGINT DEFAULT NULL,
+      session_high_hr BIGINT DEFAULT NULL,
+      session_avg_hr BIGINT DEFAULT NULL,
+      session_day_avg_hr BIGINT DEFAULT NULL,
+      session_time BIGINT DEFAULT NULL,
+      session_name LONGTEXT COLLATE utf8mb4_general_ci,
+      row_hr_details LONGTEXT COLLATE utf8mb4_general_ci,
+      is_archived BIGINT DEFAULT NULL,
+      is_updated BIGINT DEFAULT NULL,
+      time_stamp BIGINT DEFAULT NULL,
+      created_time_stamp BIGINT DEFAULT NULL,
+      last_updated_time_stamp BIGINT DEFAULT NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP NULL DEFAULT NULL,
+      deleted_at TIMESTAMP NULL DEFAULT NULL
+      );
+      `);
+
+    console.log("HR Dump table created successfully");
+  } catch (error) {
+    console.error("Error creating HR Dump table:", error);
+  }
+}
+export async function createUserTable(tableName) {
+  try {
+    await db.query(`
+   
+    CREATE TABLE ${tableName} (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      remember_token VARCHAR(100),
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      contact_no VARCHAR(15),
+      role VARCHAR(50),
+      status VARCHAR(50),
+      username VARCHAR(50),
+      company_id INT,
+      deleted_at TIMESTAMP,
+      updated_by VARCHAR(50),
+      domain_name VARCHAR(255)
+  );
+      `);
+    console.log("HR Dump table created successfully");
+  } catch (error) {
+    console.error("Error creating HR Dump table:", error);
+  }
+}
+export async function createMonitorTable(tableName) {
+  try {
+    await db.query(`
+   
+    CREATE TABLE ${tableName} (
+      id int NOT NULL AUTO_INCREMENT,
+      user_id int DEFAULT NULL,
+      sessionId bigint DEFAULT NULL,
+      session_perform_time bigint DEFAULT NULL,
+      session_start_hr bigint DEFAULT NULL,
+      session_end_hr bigint DEFAULT NULL,
+      session_low_hr bigint DEFAULT NULL,
+      session_high_hr bigint DEFAULT NULL,
+      session_avg_hr bigint DEFAULT NULL,
+      session_day_avg_hr bigint DEFAULT NULL,
+      session_time bigint DEFAULT NULL,
+      session_name longtext COLLATE utf8mb4_general_ci,
+      row_hr_details longtext COLLATE utf8mb4_general_ci,
+      is_archived bigint DEFAULT NULL,
+      is_updated bigint DEFAULT NULL,
+      time_stamp bigint DEFAULT NULL,
+      created_time_stamp bigint DEFAULT NULL,
+      last_updated_time_stamp bigint DEFAULT NULL,
+      created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at timestamp NULL DEFAULT NULL,
+      deleted_at timestamp NULL DEFAULT NULL,
+      PRIMARY KEY (id)
+    );
+    
+      `);
+    console.log("HR Dump table created successfully");
+  } catch (error) {
+    console.error("Error creating HR Dump table:", error);
+  }
+}

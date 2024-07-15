@@ -1,8 +1,14 @@
+import {
+  createAppAccessLogTable,
+  createBreathDataTable,
+  createHeartRateSessionsTable,
+  createMeditationDataTable,
+  createUserTable,
+} from "@/database/migrations";
 import { asyncErrorHandler } from "@/utils/AsyncErrorHandler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import db from "../../../database/dbConnection";
-import { createAppUsageTable, createHRDumpTable } from "@/database/migrations";
 
 export default asyncErrorHandler(async function handler(req, res, file) {
   if (req.method === "GET") {
@@ -13,7 +19,7 @@ export default asyncErrorHandler(async function handler(req, res, file) {
     const offset = (page - 1) * pageSize;
     console.log(search, "serch");
 
-    let sqlQuery = "SELECT * FROM company";
+    let sqlQuery = "SELECT * FROM company WHERE deleted_at IS NULL";
     let sqlParams = [];
     if (search.trim() !== "") {
       sqlQuery +=
@@ -85,11 +91,20 @@ export default asyncErrorHandler(async function handler(req, res, file) {
         [result.insertId]
       );
       const companyId = result.insertId;
-      const tableName = `${companyId}_app_usage`;
-      const hrTablename = `${companyId}_hr_dump`;
 
-      await createAppUsageTable(tableName);
-      await createHRDumpTable(hrTablename);
+      const appAccess = `${companyId}_user_app_access_log`;
+      const heartRateSession = `${companyId}_heart_rate_session`;
+      const breathData = `${companyId}_breath_data`;
+      const meditationData = `${companyId}_meditation_data`;
+      const UserTable = `${companyId}_users`;
+      const monitorSessionData = `${companyId}_monitor_session_data`;
+
+      await createUserTable(UserTable);
+      await createAppAccessLogTable(appAccess);
+      await createHeartRateSessionsTable(heartRateSession);
+      await createBreathDataTable(breathData);
+      await createMeditationDataTable(meditationData);
+      await createMeditationDataTable(monitorSessionData);
 
       res.status(200).json({ status: true, user: insertedData, token });
     } catch (error) {
@@ -134,6 +149,22 @@ export default asyncErrorHandler(async function handler(req, res, file) {
     ]);
 
     res.status(200).json({ status: true, user: updatedData });
+  }else if (req.method === "DELETE") {
+    const id = req.query.id;
+
+    const [deleteResult] = await db.query(
+      `UPDATE company SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?`,
+      [id]
+    );
+
+    if (deleteResult.affectedRows === 0) {
+      return res.status(404).json({ status: false, message: "user not found" });
+    }
+
+    return res.status(200).json({
+      status: true,
+      message: "user soft deleted successfully",
+    });
   } else {
     res.status(405).json({ status: false, error: "Method Not Allowed" });
   }

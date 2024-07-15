@@ -90,14 +90,14 @@ const ManageUserEdit = () => {
 
   return (
     <div
-      style={{ backgroundColor: "rgba(249, 249, 251, 1)" }}
+    style={{ backgroundColor: "#ffe8dd" }} 
       className=" min-h-screen"
     >
       <div className="flex">
         <div className="lg:w-[300px] sm:w-0"></div>
 
         <div className="flex-1 ">
-          <div className="lg:h-[77px] md:h-[66px] border shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl mt-3 ms-7 mr-7 bg-white border-b border-gray-200 px-6 py-3">
+          <div style={{ backgroundColor: "#fef1eb" }} className="lg:h-[77px] md:h-[66px] border shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl mt-3 ms-7 mr-7  border-b border-gray-200 px-6 py-3">
             <div className="flex justify-between">
               {" "}
               <div className="flex   ml-12 md:ml-10 sm:ml-10 lg:ml-0 lg:mt-0 font-bold ">
@@ -111,7 +111,7 @@ const ManageUserEdit = () => {
             </div>
           </div>
 
-          <div className="mt-14 ms-7 mr-7  shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl border border-gray-200  bg-white  ">
+          <div style={{ backgroundColor: "#fef1eb" }} className="mt-14 ms-7 mr-7  shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl border border-gray-200    ">
             <div className="flex p-6 justify-between">
               <h3
                 className="font-semibold ms-2 text-xl "
@@ -226,14 +226,14 @@ const ManageUserEdit = () => {
                   <div className=" ms-7 mt-5 flex">
                     <button
                       type="submit"
-                      className="text-white bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-orange-300 dark:focus:ring-orange-800 shadow-lg shadow-orange-500/50 dark:shadow-lg dark:shadow-orange-800/80 font-medium rounded-lg text-sm px-7 py-2.5 text-center me-2 mb-2"
+                      className="text-white bg-gradient-to-r bg-orange-500  hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-orange-300 dark:focus:ring-orange-800 shadow-lg  font-medium rounded-lg text-sm px-7 py-2.5 text-center me-2 mb-2"
                     >
                       Save
                     </button>
                     <button
                       type="button"
                       onClick={CancleFun}
-                      className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-7 py-2.5 text-center me-2 mb-2"
+                      className="text-white bg-gradient-to-r bg-red-500  hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg  font-medium rounded-lg text-sm px-7 py-2.5 text-center me-2 mb-2"
                     >
                       Cancle
                     </button>

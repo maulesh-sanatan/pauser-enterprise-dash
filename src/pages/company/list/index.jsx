@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Loader from "@/components/shared/Loader";
-import { post } from "@/utils/axios";
+import { Delete, post } from "@/utils/axios";
 import { calculatePageRange } from "@/utils/FrontendFunctions";
 
 const List = () => {
@@ -14,6 +14,7 @@ const List = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showClearBox, setShowClearBox] = useState(false);
   const [triggerSearch, setTriggerSearch] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
     try {
@@ -32,41 +33,38 @@ const List = () => {
     } finally {
       setLoading(false);
     }
-  }, [currentPage, itemsPerPage, triggerSearch, searchTerm]);
+  }, [currentPage, itemsPerPage, triggerSearch, searchTerm,isUpdate]);
 
   const ToForm = () => {
     router.push("/company/form");
   };
+  // EDIT COMPANY
   const editCompany = async (values) => {
     console.log(values, "valuesssss");
     const _id = values?.id;
     router.push(`/company/form/edit/${_id}`);
   };
+  // DELETE COMPANY
+  const DeleteCompany = async (values) => {
+    console.log(values, "delete");
 
-  async function LoginUser(values) {
-    console.log(values, "byvalues");
-    const data = {
-      email: values?.email,
-      password: values.password,
-      role: "super admin",
-    };
+    const userId = values.id;
+    const isConfirmed = window.confirm(`Are you sure you want to delete ?`);
+    if (isConfirmed) {
+      const data = await Delete(`/api/company?id=${userId}`);
+      const res = await data.json();
 
-    const response = await post("/api/login", data);
-
-    const res = await response.json();
-    console.log(res, "res");
-
-    if (res.status === true) {
-      localStorage.setItem("Role", res?.user[0].user_group);
-      localStorage.setItem("UserId", res?.user[0].id);
-      router.reload();
-      router.push("/dashboard");
+      if (res.status === true) {
+        alert("deleted succesfully");
+        setIsUpdate((prev) => !prev);
+      }
+      if (res.status === false) {
+        alert(res.message);
+      }
     }
+  };
 
-    if (res.status === false) {
-      alert(res.message);
-    }
-  }
+
   // PAGINATION COMPANY
   const { startPage, endPage } = calculatePageRange(pages, currentPage);
 
@@ -87,10 +85,7 @@ const List = () => {
   };
 
   return (
-    <div
-      style={{ backgroundColor: "rgba(249, 249, 251, 1)" }}
-      className=" min-h-screen"
-    >
+    <div style={{ backgroundColor: "#ffe8dd" }} className=" min-h-screen">
       <div className="flex">
         <div className="lg:w-[300px] sm:w-0"></div>
 
@@ -98,7 +93,10 @@ const List = () => {
           <Loader />
         ) : (
           <div className="flex-1 ">
-            <div className="lg:h-[77px] md:h-[66px] border shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl mt-3 ms-7 mr-7 bg-white border-b border-gray-200 px-6 py-3">
+            <div
+              style={{ backgroundColor: "#fef1eb" }}
+              className="lg:h-[77px] md:h-[66px] border shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl mt-3 ms-7 mr-7  border-b border-gray-200 px-6 py-3"
+            >
               <div className="flex justify-between">
                 {" "}
                 <div className="flex  text-xl ml-12 md:ml-10 sm:ml-10 lg:ml-0 lg:mt-0 font-bold ">
@@ -114,9 +112,13 @@ const List = () => {
             <div className="flex justify-between mt-5">
               <div className=" ms-7">
                 <div className="flex">
-                  <div className=" flex items-center w-full h-12 rounded-lg  focus-within:shadow-lg bg-white overflow-hidden">
+                  <div
+                    style={{ backgroundColor: "#fef1eb" }}
+                    className=" flex items-center w-full h-12 rounded-lg  focus-within:shadow-lg  overflow-hidden"
+                  >
                     <div>
                       <input
+                        style={{ backgroundColor: "#fef1eb" }}
                         className="peer ms-3 h-full w-full outline-none font-normal text-gray-700 pr-2"
                         value={searchTerm}
                         onChange={handleSearch}
@@ -158,7 +160,10 @@ const List = () => {
             </div>
 
             <div>
-              <div className="mt-5 ms-7 mr-7 p-4  shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl border border-gray-200  bg-white  ">
+              <div
+                style={{ backgroundColor: "#fef1eb" }}
+                className="mt-5 ms-7 mr-7 p-4  shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl border border-gray-200  "
+              >
                 <div className="flex justify-between">
                   <h3
                     className="font-semibold ms-2 text-xl "
@@ -169,7 +174,7 @@ const List = () => {
                   <button
                     type="button"
                     onClick={ToForm}
-                    className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                    className="text-white bg-gradient-to-r bg-orange-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-orange-300 dark:focus:ring-orange-800 shadow-lg shadow-orange-500/50 dark:shadow-lg dark:shadow-orange-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                   >
                     Add Company
                   </button>
@@ -199,13 +204,6 @@ const List = () => {
                             className="px-6 py-5 text-start text-[16px] font-semibold "
                           >
                             USERNAME
-                          </th>
-                          <th
-                            scope="col"
-                            style={{ color: "#566A7F" }}
-                            className="px-6 py-5 text-start text-[16px] font-semibold "
-                          >
-                            COMPANY NAME
                           </th>
 
                           <th
@@ -239,17 +237,14 @@ const List = () => {
                           <td className="px-6 py-3 whitespace-nowrapfont-normal text-[14px] font-normal text-gray-800 dark:text-gray-200">
                             {staffMember?.username}
                           </td>
-                          <td className="px-6 py-3 whitespace-nowrapfont-normal text-[14px] font-normal text-gray-800 dark:text-gray-200">
-                            {staffMember?.domain_name.split(".")[0]}
-                          </td>
 
                           <td className="px-6 border-l border-gray-200 py-4 w-28 whitespace-nowrapfont-normal text-end font-normal ">
                             <div className="flex justify-between">
                               <button onClick={() => editCompany(staffMember)}>
                                 <img src="/images/eye 1.png" alt="Eye Icon" />
                               </button>
-                              <button onClick={() => LoginUser(staffMember)}>
-                                <img src="/images/login.png" alt="Eye Icon" />
+                              <button onClick={() => DeleteCompany(staffMember)}>
+                                <img src="/images/delete 1.png" alt="Eye Icon" />
                               </button>
                             </div>
                           </td>
@@ -279,7 +274,7 @@ const List = () => {
                 onClick={() => setCurrentPage(startPage + index)}
                 className={`mx-1 text-black px-2 py-1 rounded ${
                   currentPage === startPage + index
-                    ? "bg-blue-300 text-white"
+                    ? "bg-orange-300 text-black"
                     : ""
                 }`}
               >

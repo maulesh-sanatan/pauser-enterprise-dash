@@ -1,6 +1,7 @@
 import { asyncErrorHandler } from "@/utils/AsyncErrorHandler";
 import bcrypt from "bcrypt";
 import db from "../../../database/dbConnection";
+import { createUserTable } from "@/database/migrations";
 
 export default asyncErrorHandler(async function handler(req, res, file) {
   if (req.method === "GET") {
@@ -107,10 +108,12 @@ export default asyncErrorHandler(async function handler(req, res, file) {
       ) VALUES (?, ?, ?, ?, ?, NOW(), NOW())`,
       [name, email, hashedPassword, username, contact_no]
     );
-
+    
     const [insertedData] = await db.query("SELECT * FROM users WHERE id = ?", [
       result.insertId,
     ]);
+   
+   
 
     res.status(201).json({ status: true, user: insertedData });
   } else if (req.method === "PUT") {

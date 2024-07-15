@@ -2,6 +2,7 @@ export const PATH = {
   BASE_URL: "/",
   DASHBOARD: "/dashboard",
   COMPANY: "/company/list",
+  USER: "/user",
   // EMPLOYEE: '/employee',
   // CHANGEPASS: "/profile/changepassword",
   PROFILE: "/profile",

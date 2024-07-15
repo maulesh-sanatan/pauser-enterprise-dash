@@ -55,6 +55,7 @@ const LogIn = () => {
           backgroundImage: 'url("/Images/loginback.png")',
           backgroundRepeat: "no-repat",
           backgroundSize: "cover",
+          backgroundColor: "#fe825b",
         }}
         className=" min-h-screen  flex flex-col justify-center   sm:px-6 lg:px-8"
       >
@@ -64,7 +65,10 @@ const LogIn = () => {
           </div>
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] py-4 px-4  sm:rounded-lg sm:px-10">
+          <div
+            style={{ backgroundColor: "#fef1eb" }}
+            className=" shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] py-4 px-4  sm:rounded-lg sm:px-10"
+          >
             <form
               onSubmit={handleSubmit}
               className="space-y-4 mt-3"
@@ -129,7 +133,7 @@ const LogIn = () => {
                 <div className="text-sm">
                   <Link
                     href="/login/forgetpassword"
-                    className="font-medium text-gray-600 hover:text-blue-500"
+                    className="font-medium text-gray-600 hover:text-orange-500"
                   >
                     Forgot your password?
                   </Link>
@@ -138,7 +142,7 @@ const LogIn = () => {
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="group relative w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="group relative w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-500 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                 >
                   Log In
                 </button>

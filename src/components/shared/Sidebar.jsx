@@ -54,18 +54,28 @@ const Sidebar = () => {
       >
         {/* Sidebar Content */}
         <div className="min-h-screen  border border-gray-200 flex flex-row ">
-          <div className="flex flex-col w-80  bg-white  overflow-hidden">
-            <div className="flex items-center justify-center h-20 shadow-md">
-              {/* <img className="w-full p-1" src="/images/logo.png"></img> */}
+          <div
+            style={{ backgroundColor: "#fcc4ac" }}
+            className="flex flex-col w-80  bg-white  overflow-hidden"
+          >
+            <div
+              style={{ backgroundColor: "#fe825b" }}
+              className="flex items-center justify-center h-20 shadow-md"
+            >
+              <img className="w-32 p-1" src="/images/logo.png"></img>
             </div>
 
             <ul className="flex ms-5 mt-4  flex-col py-4">
               <li
                 className={
-                  router.pathname == PATH.DASHBOARD
-                    ? "text-[18px] text-rgba font-bold bg-blue-100 rounded-xl border-r-4 border-r-blue-400"
+                  router.pathname === PATH.DASHBOARD
+                    ? "text-[18px] text-rgba font-bold rounded-xl border-r-4 border-r-orange-400"
                     : "text-[18px] font-normal"
                 }
+                style={{
+                  backgroundColor:
+                    router.pathname === PATH.DASHBOARD ? "#fcb099" : "inherit",
+                }}
               >
                 <div className="flex flex-row items-center h-12  hover:text-gray-800 cursor-pointer">
                   <Link
@@ -326,9 +336,15 @@ const Sidebar = () => {
                   <li
                     className={
                       router.pathname == PATH.COMPANY
-                        ? `text-[18px] text-rgba font-bold bg-blue-100 rounded-xl border-r-4 border-r-blue-400`
+                        ? `text-[18px] text-rgba font-bold  rounded-xl border-r-4 border-r-orange-400`
                         : "text-[18px] font-normal"
                     }
+                    style={{
+                      backgroundColor:
+                        router.pathname === PATH.COMPANY
+                          ? "#fcb099"
+                          : "inherit",
+                    }}
                   >
                     <div className="flex flex-row items-center h-12  hover:text-gray-800 cursor-pointer">
                       <Link
@@ -354,9 +370,13 @@ const Sidebar = () => {
               <li
                 className={
                   router.pathname == PATH.MANAGEUSER
-                    ? `text-[18px] text-rgba font-bold bg-blue-100 rounded-xl border-r-4 border-r-blue-400`
+                    ? `text-[18px] text-rgba font-bold bg-blue-100 rounded-xl border-r-4 border-r-orange-400`
                     : "text-[18px] font-normal"
                 }
+                style={{
+                  backgroundColor:
+                    router.pathname === PATH.MANAGEUSER ? "#fcb099" : "inherit",
+                }}
               >
                 <div className="flex flex-row items-center h-12  hover:text-gray-800 cursor-pointer">
                   <Link
@@ -372,6 +392,34 @@ const Sidebar = () => {
                       />
                     </span>
                     <span className="">List users</span>
+                  </Link>
+                </div>
+              </li>
+              <li
+                className={
+                  router.pathname == PATH.USER
+                    ? `text-[18px] text-rgba font-bold  rounded-xl border-r-4 border-r-orange-400`
+                    : "text-[18px] font-normal"
+                }
+                style={{
+                  backgroundColor:
+                    router.pathname === PATH.USER ? "#fcb099" : "inherit",
+                }}
+              >
+                <div className="flex flex-row items-center h-12  hover:text-gray-800 cursor-pointer">
+                  <Link
+                    href={PATH.USER}
+                    className="flex flex-row items-center h-12 t  hover:text-gray-800"
+                  >
+                    <span className="inline-flex items-center justify-center h-12 w-12 text-lg ">
+                      <Image
+                        src="/images/building.png"
+                        width={25}
+                        height={25}
+                        alt=""
+                      />
+                    </span>
+                    <span className="">Company users</span>
                   </Link>
                 </div>
               </li>
