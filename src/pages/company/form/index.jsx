@@ -27,7 +27,6 @@ const Form = () => {
     name: "",
     email: "",
     password: "",
-
     username: "",
   };
   const {
@@ -225,6 +224,33 @@ const Form = () => {
                       required
                       className="appearance-none rounded-md  block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                       placeholder="Username"
+                    />
+                    <div>
+                      {touched.domain && errors.domain && (
+                        <p className="text-rose-500">{errors.domain}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-3">
+                    <label
+                      htmlFor="username"
+                      className=" text-sm"
+                      style={{ color: "#566A7F" }}
+                    >
+                      COMPANY IDENTITY
+                    </label>
+                    <input
+                      id="company_identity"
+                      name="company_identity"
+                      type="text"
+                      value={values.company_identity}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      autoComplete="current-password"
+                      required
+                      className="appearance-none rounded-md  block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                      placeholder="Company Identity"
                     />
                     <div>
                       {touched.domain && errors.domain && (

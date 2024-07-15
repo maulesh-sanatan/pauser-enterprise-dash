@@ -20,4 +20,5 @@ export const Companyschema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
+  company_identity: Yup.string().required("Company Identity is required")
 });

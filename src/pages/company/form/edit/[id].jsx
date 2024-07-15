@@ -43,6 +43,7 @@ const EditForm = () => {
     email: companyObject?.email || "",
     username: companyObject?.username || "",
     domain: companyObject?.domain_name || "",
+    company_identity : companyObject?.company_identity || ""
   };
   console.log(formState, "formState");
   const initialvalues = {
@@ -236,6 +237,16 @@ const EditForm = () => {
                       DOMAIN NAME
                     </label>
                     <p>{formState?.domain}</p>
+                  </div>
+                  <div className="mt-3">
+                    <label
+                      htmlFor="username"
+                      className=" text-sm"
+                      style={{ color: "#566A7F" }}
+                    >
+                     COMPANY IDENTITY
+                    </label>
+                    <p>{formState?.company_identity}</p>
                   </div>
 
                   <div className=" ms-7 mt-5 flex">

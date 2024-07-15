@@ -53,16 +53,16 @@ export default asyncErrorHandler(async function handler(req, res, file) {
       },
     });
   } else if (req.method === "POST") {
-    const { name, email, password, username, domain } = req.body;
+    const { name, email, password, username, domain, company_identity } = req.body;
     console.log(req.body, "req.body");
 
     try {
       const query = `
-        SELECT email, username 
-        FROM new_pauser.company 
-        WHERE email = ? OR username = ?
+        SELECT email, username, company_identity 
+        FROM pauser_enterprise.company 
+        WHERE email = ? OR username = ? OR company_identity = ?
       `;
-      const [existingUser] = await db.query(query, [email, username]);
+      const [existingUser] = await db.query(query, [email, username, company_identity]);
 
       if (existingUser.length > 0) {
         let errorMessage = "already exist following field:";
@@ -71,6 +71,9 @@ export default asyncErrorHandler(async function handler(req, res, file) {
         }
         if (existingUser.some((user) => user.username === username)) {
           errorMessage += " Username";
+        }
+        if (existingUser.some((user) => user.company_identity === company_identity)) {
+          errorMessage += " Company Identity";
         }
         return res.status(409).json({ status: false, message: errorMessage });
       }
@@ -81,9 +84,9 @@ export default asyncErrorHandler(async function handler(req, res, file) {
 
       const [result] = await db.query(
         `INSERT INTO company (
-          company_name, email, password, username, domain_name, role
-        ) VALUES (?, ?, ?, ?, ?, ?)`,
-        [name, email, hashedPassword, username, domain, "admin"]
+          company_name, email, password, username, domain_name, company_identity, role
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [name, email, hashedPassword, username, domain, company_identity, "admin"]
       );
 
       const [insertedData] = await db.query(
