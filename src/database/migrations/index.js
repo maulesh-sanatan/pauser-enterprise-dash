@@ -210,9 +210,9 @@ export async function createUserTable(tableName) {
     CREATE TABLE ${tableName} (
       id INT AUTO_INCREMENT PRIMARY KEY,
       company_id INT,
-      name VARCHAR(255) NOT NULL,
+      name VARCHAR(255) DEFAULT NULL,
       username VARCHAR(50) DEFAULT NULL,
-      email VARCHAR(255) NOT NULL,
+      email VARCHAR(255) DEFAULT NULL,
       password VARCHAR(255) DEFAULT NULL,
       mobile_no varchar(13) DEFAULT NULL,
       age varchar(10) DEFAULT NULL,
