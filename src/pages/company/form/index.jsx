@@ -1,4 +1,5 @@
 import { post } from "@/utils/axios";
+import { baseUrl } from "@/utils/constansts";
 import { Companyschema } from "@/validations/CompanyFormValidation";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
@@ -7,7 +8,7 @@ const Form = () => {
   const router = useRouter();
 
   async function CreateCompany(values) {
-    const response = await post("/api/company", values);
+    const response = await post(`${baseUrl}/company`, values);
 
     const res = await response.json();
     console.log(res, "res");

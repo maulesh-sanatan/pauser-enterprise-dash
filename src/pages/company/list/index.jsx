@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Loader from "@/components/shared/Loader";
 import { Delete, post } from "@/utils/axios";
 import { calculatePageRange } from "@/utils/FrontendFunctions";
+import { baseUrl } from "@/utils/constansts";
 
 const List = () => {
   const router = useRouter();
@@ -20,7 +21,7 @@ const List = () => {
     try {
       (async () => {
         const data = await fetch(
-          `/api/company?page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}`
+          `${baseUrl}/company?page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}`
         );
         const res = await data.json();
 
@@ -33,7 +34,7 @@ const List = () => {
     } finally {
       setLoading(false);
     }
-  }, [currentPage, itemsPerPage, triggerSearch, searchTerm,isUpdate]);
+  }, [currentPage, itemsPerPage, triggerSearch, searchTerm, isUpdate]);
 
   const ToForm = () => {
     router.push("/company/form");
@@ -63,7 +64,6 @@ const List = () => {
       }
     }
   };
-
 
   // PAGINATION COMPANY
   const { startPage, endPage } = calculatePageRange(pages, currentPage);
@@ -243,8 +243,13 @@ const List = () => {
                               <button onClick={() => editCompany(staffMember)}>
                                 <img src="/images/eye 1.png" alt="Eye Icon" />
                               </button>
-                              <button onClick={() => DeleteCompany(staffMember)}>
-                                <img src="/images/delete 1.png" alt="Eye Icon" />
+                              <button
+                                onClick={() => DeleteCompany(staffMember)}
+                              >
+                                <img
+                                  src="/images/delete 1.png"
+                                  alt="Eye Icon"
+                                />
                               </button>
                             </div>
                           </td>

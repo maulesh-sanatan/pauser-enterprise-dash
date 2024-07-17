@@ -1,4 +1,5 @@
 import { post } from "@/utils/axios";
+import { baseUrl } from "@/utils/constansts";
 
 import { useFormik } from "formik";
 import Link from "next/link";
@@ -9,7 +10,7 @@ const LogIn = () => {
   async function LoginUser(values) {
     console.log(values, "byvalues");
 
-    const response = await post("/api/login", values);
+    const response = await post(`${baseUrl}/login`, values);
 
     const res = await response.json();
     console.log(res, "res");
