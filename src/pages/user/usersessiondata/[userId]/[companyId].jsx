@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Chart } from "chart.js";
+import { baseUrl } from "@/utils/constansts";
 
 const ManageUserEdit = () => {
   const router = useRouter();
@@ -340,7 +341,7 @@ const ManageUserEdit = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let url = `/api/dashboard/getusersdata?userId=${parseInt(
+        let url = `${baseUrl}/dashboard/getusersdata?userId=${parseInt(
           userId
         )}&companyId=${parseInt(companyId)}`;
 

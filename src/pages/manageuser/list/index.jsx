@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Loader from "@/components/shared/Loader";
 import { Delete, post } from "@/utils/axios";
 import { calculatePageRange } from "@/utils/FrontendFunctions";
+import { baseUrl } from "@/utils/constansts";
 
 const ManageUserList = () => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const ManageUserList = () => {
         const role = await localStorage.getItem("Role");
         console.log(domain, "domain");
         const data = await fetch(
-          `/api/manageuser?page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}&domain=${domain}&role=${role}`
+          `${baseUrl}/manageuser?page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}&domain=${domain}&role=${role}`
         );
         const res = await data.json();
 
@@ -56,7 +57,7 @@ const ManageUserList = () => {
     const userId = values.id;
     const isConfirmed = window.confirm(`Are you sure you want to delete ?`);
     if (isConfirmed) {
-      const data = await Delete(`/api/manageuser?id=${userId}`);
+      const data = await Delete(`${baseUrl}/manageuser?id=${userId}`);
       const res = await data.json();
 
       if (res.status === true) {

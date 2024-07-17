@@ -1,5 +1,6 @@
 import Loader from "@/components/shared/Loader";
 import { calculatePageRange } from "@/utils/FrontendFunctions";
+import { baseUrl } from "@/utils/constansts";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -39,7 +40,7 @@ const User = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/company/getcompanynames`);
+        const response = await fetch(`${baseUrl}/company/getcompanynames`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -68,7 +69,7 @@ const User = () => {
         const id = role === "super admin" ? selectedCompany : companyId;
 
         const data = await fetch(
-          `/api/dashboard/getuserslist?companyId=${id}&page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}`
+          `${baseUrl}/dashboard/getuserslist?companyId=${id}&page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}`
         );
         const res = await data.json();
 

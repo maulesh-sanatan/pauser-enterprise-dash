@@ -1,4 +1,5 @@
 import { put } from "@/utils/axios";
+import { baseUrl } from "@/utils/constansts";
 import { EditCompanyschema } from "@/validations/EditCompanyValidation";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
@@ -15,7 +16,7 @@ const EditForm = () => {
   const editCompany = async (values) => {
     console.log(values, "values for edit company");
 
-    const response = await put(`/api/company?id=${id}`, values);
+    const response = await put(`${baseUrl}/company?id=${id}`, values);
 
     const res = await response.json();
     console.log(res, "editres");
@@ -27,7 +28,7 @@ const EditForm = () => {
     try {
       (async () => {
         console.log(id);
-        const response = await fetch(`/api/company/edit/${id}`);
+        const response = await fetch(`${baseUrl}/company/edit/${id}`);
         const res = await response.json();
         console.log(res, "response");
         setCompanyObject(res.data, "Company object res");

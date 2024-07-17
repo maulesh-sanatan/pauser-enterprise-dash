@@ -1,4 +1,5 @@
 import { post, put } from "@/utils/axios";
+import { baseUrl } from "@/utils/constansts";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -17,7 +18,7 @@ const ManageUserEdit = () => {
       (async () => {
         console.log(id);
 
-        const response = await fetch(`/api/manageuser/getedit?id=${id}`);
+        const response = await fetch(`${baseUrl}/manageuser/getedit?id=${id}`);
         const res = await response.json();
         console.log(res, "response");
         setUserRes(res.data);
@@ -31,7 +32,7 @@ const ManageUserEdit = () => {
   async function editUser(values) {
     console.log(values, "byvalues");
 
-    const response = await put(`/api/manageuser?id=${id}`, values);
+    const response = await put(`${baseUrl}/manageuser?id=${id}`, values);
 
     const res = await response.json();
     console.log(res, "res");

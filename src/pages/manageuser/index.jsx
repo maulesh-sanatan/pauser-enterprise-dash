@@ -1,4 +1,5 @@
 import { post } from "@/utils/axios";
+import { baseUrl } from "@/utils/constansts";
 import { Companyschema } from "@/validations/CompanyFormValidation";
 import { UservalidationSchema } from "@/validations/userValidation";
 import { useFormik } from "formik";
@@ -14,7 +15,7 @@ const ManageUserForm = () => {
     console.log(values, "byvalues");
     const id = await localStorage.getItem("UserId");
 
-    const response = await post(`/api/manageuser?companyId=${id}`, values);
+    const response = await post(`${baseUrl}/manageuser?companyId=${id}`, values);
 
     const res = await response.json();
     console.log(res, "res");

@@ -52,7 +52,7 @@ const List = () => {
     const userId = values.id;
     const isConfirmed = window.confirm(`Are you sure you want to delete ?`);
     if (isConfirmed) {
-      const data = await Delete(`/api/company?id=${userId}`);
+      const data = await Delete(`${baseUrl}/company?id=${userId}`);
       const res = await data.json();
 
       if (res.status === true) {

@@ -1,5 +1,6 @@
 import Loader from "@/components/shared/Loader";
 import { calculatePageRange } from "@/utils/FrontendFunctions";
+import { baseUrl } from "@/utils/constansts";
 import { Chart } from "chart.js";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -88,7 +89,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/company/getcompanynames`);
+        const response = await fetch(`${baseUrl}/company/getcompanynames`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -115,7 +116,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const id = role === "super admin" ? selectedCompany : companyId;
-        let url = `/api/dashboard?companyId=${parseInt(id)}`;
+        let url = `${baseUrl}/dashboard?companyId=${parseInt(id)}`;
 
         if (startDate && endDate && triggerSerch) {
           console.log("chaeck");
