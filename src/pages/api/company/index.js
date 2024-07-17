@@ -53,7 +53,8 @@ export default asyncErrorHandler(async function handler(req, res, file) {
       },
     });
   } else if (req.method === "POST") {
-    const { name, email, password, username, domain, company_identity } = req.body;
+    const { name, email, password, username, domain, company_identity } =
+      req.body;
     console.log(req.body, "req.body");
 
     try {
@@ -62,7 +63,11 @@ export default asyncErrorHandler(async function handler(req, res, file) {
         FROM pauser_enterprise.company 
         WHERE email = ? OR username = ? OR company_identity = ?
       `;
-      const [existingUser] = await db.query(query, [email, username, company_identity]);
+      const [existingUser] = await db.query(query, [
+        email,
+        username,
+        company_identity,
+      ]);
 
       if (existingUser.length > 0) {
         let errorMessage = "already exist following field:";
@@ -72,7 +77,11 @@ export default asyncErrorHandler(async function handler(req, res, file) {
         if (existingUser.some((user) => user.username === username)) {
           errorMessage += " Username";
         }
-        if (existingUser.some((user) => user.company_identity === company_identity)) {
+        if (
+          existingUser.some(
+            (user) => user.company_identity === company_identity
+          )
+        ) {
           errorMessage += " Company Identity";
         }
         return res.status(409).json({ status: false, message: errorMessage });
@@ -86,7 +95,15 @@ export default asyncErrorHandler(async function handler(req, res, file) {
         `INSERT INTO company (
           company_name, email, password, username, domain_name, company_identity, role
         ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        [name, email, hashedPassword, username, domain, company_identity, "admin"]
+        [
+          name,
+          email,
+          hashedPassword,
+          username,
+          domain,
+          company_identity,
+          "admin",
+        ]
       );
 
       const [insertedData] = await db.query(
@@ -152,7 +169,7 @@ export default asyncErrorHandler(async function handler(req, res, file) {
     ]);
 
     res.status(200).json({ status: true, user: updatedData });
-  }else if (req.method === "DELETE") {
+  } else if (req.method === "DELETE") {
     const id = req.query.id;
 
     const [deleteResult] = await db.query(
