@@ -62,7 +62,7 @@ export default asyncErrorHandler(async function handler(req, res, file) {
     try {
       const query = `
         SELECT email, username, company_identity 
-        FROM company 
+        FROM pauser_enterprise.company 
         WHERE email = ? OR username = ? OR company_identity = ?
       `;
       const [existingUser] = await db.query(query, [
