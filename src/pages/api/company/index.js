@@ -1,8 +1,10 @@
 import {
   createAppAccessLogTable,
   createBreathDataTable,
+  createHRDumpTable,
   createHeartRateSessionsTable,
   createMeditationDataTable,
+  createMonitorTable,
   createUserTable,
 } from "@/database/migrations";
 import { asyncErrorHandler } from "@/utils/AsyncErrorHandler";
@@ -118,13 +120,15 @@ export default asyncErrorHandler(async function handler(req, res, file) {
       const meditationData = `${companyId}_meditation_data`;
       const UserTable = `${companyId}_users`;
       const monitorSessionData = `${companyId}_monitor_session_data`;
+     
 
       await createUserTable(UserTable);
       await createAppAccessLogTable(appAccess);
       await createHeartRateSessionsTable(heartRateSession);
       await createBreathDataTable(breathData);
       await createMeditationDataTable(meditationData);
-      await createMeditationDataTable(monitorSessionData);
+      await createMonitorTable(monitorSessionData);
+     
 
       res.status(200).json({ status: true, user: insertedData, token });
     } catch (error) {

@@ -118,8 +118,8 @@ export async function createHeartRateSessionsTable(tableName) {
         last_updated_time_stamp BIGINT DEFAULT NULL,
         start_time_stamp BIGINT DEFAULT NULL,
         end_time_stamp BIGINT DEFAULT NULL,
-        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP NULL DEFAULT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         deleted_at TIMESTAMP NULL DEFAULT NULL
     );
     
@@ -174,27 +174,26 @@ export async function createMeditationDataTable(tableName) {
     await db.query(`
    
     CREATE TABLE ${tableName} (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      user_id INT DEFAULT NULL,
-      sessionId BIGINT DEFAULT NULL,
-      session_perform_time BIGINT DEFAULT NULL,
-      session_start_hr BIGINT DEFAULT NULL,
-      session_end_hr BIGINT DEFAULT NULL,
-      session_low_hr BIGINT DEFAULT NULL,
-      session_high_hr BIGINT DEFAULT NULL,
-      session_avg_hr BIGINT DEFAULT NULL,
-      session_day_avg_hr BIGINT DEFAULT NULL,
-      session_time BIGINT DEFAULT NULL,
-      session_name LONGTEXT COLLATE utf8mb4_general_ci,
-      row_hr_details LONGTEXT COLLATE utf8mb4_general_ci,
-      is_archived BIGINT DEFAULT NULL,
-      is_updated BIGINT DEFAULT NULL,
-      time_stamp BIGINT DEFAULT NULL,
-      created_time_stamp BIGINT DEFAULT NULL,
-      last_updated_time_stamp BIGINT DEFAULT NULL,
-      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updated_at TIMESTAMP NULL DEFAULT NULL,
-      deleted_at TIMESTAMP NULL DEFAULT NULL
+      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id INT DEFAULT NULL,
+  meditationId VARCHAR(255) DEFAULT NULL,
+  meditation_perform_time VARCHAR(255) DEFAULT NULL,
+  meditation_start_hr VARCHAR(255) DEFAULT NULL,
+  meditation_end_hr VARCHAR(255) DEFAULT NULL,
+  meditation_low_hr VARCHAR(255) DEFAULT NULL,
+  meditation_day_avg_hr VARCHAR(255) DEFAULT NULL,
+  meditation_avg_hr VARCHAR(255) DEFAULT NULL,
+  meditation_time VARCHAR(255) DEFAULT NULL,
+  meditation_type VARCHAR(255) DEFAULT NULL,
+  dump_hr_details VARCHAR(255) DEFAULT NULL,
+  is_meditation_finished VARCHAR(255) DEFAULT NULL,
+  is_updated VARCHAR(255) DEFAULT NULL,
+  time_stamp VARCHAR(255) DEFAULT NULL,
+  created_time_stamp VARCHAR(255) DEFAULT NULL,
+  last_updated_time_stamp VARCHAR(255) DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  delete_at TIMESTAMP DEFAULT NULL
       );
       `);
 
