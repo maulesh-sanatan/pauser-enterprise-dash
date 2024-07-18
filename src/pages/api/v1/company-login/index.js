@@ -26,7 +26,7 @@ export default asyncErrorHandler(async function handler(req, res) {
               return res.status(200).json({
                 success: true,
                 message: "User data update successfully",
-                data: { userId: checkUsers[0].id, comapny_id: comp_id, token: token },
+                data: { userId: checkUsers[0].id, company_id: comp_id, token: token },
               });
           }else{
             console.log("insert");
@@ -46,7 +46,7 @@ export default asyncErrorHandler(async function handler(req, res) {
             return res.status(200).json({
               success: true,
               message: "User data saved successfully",
-              data: { userId: insertResult.insertId, comapny_id: comp_id, token: token },
+              data: { userId: insertResult.insertId, company_id: comp_id, token: token },
             });
           }
           // db.query(`SELECT * FROM ${tableName} WHERE email = ?`, [email], (err, rows) => {
@@ -202,7 +202,7 @@ export default asyncErrorHandler(async function handler(req, res) {
 
           res.status(200).json({
             status: false,
-            message: "Comapny not found based on given company identity",
+            message: "Company not found based on given company identity",
             data: []
           });
         
