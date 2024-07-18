@@ -49,12 +49,12 @@ export default asyncErrorHandler(async function handler(req, res) {
             const result = await Promise.all(insert)
             if (result.length === data.length) {
                 res.status(200).json({
-                    status: true,
+                  success: true,
                     message: "Heart rate session data insert operation successfully",
                 });
             } else {
                 res.status(500).json({
-                    status: false,
+                  success: false,
                     message: "Heart rate session data failed operation",
                 });
             }

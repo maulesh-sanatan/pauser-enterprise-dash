@@ -192,7 +192,7 @@ export default asyncErrorHandler(async function handler(req, res) {
         // });
         }catch(e){
           res.status(200).json({
-            status: false,
+            success: false,
             message: e.message,
             data: []
           });
@@ -201,7 +201,7 @@ export default asyncErrorHandler(async function handler(req, res) {
 
 
           res.status(200).json({
-            status: false,
+            success: false,
             message: "Company not found based on given company identity",
             data: []
           });

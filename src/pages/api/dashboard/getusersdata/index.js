@@ -8,6 +8,10 @@ export default asyncErrorHandler(async function handler(req, res) {
   
     const id = parseInt(companyId);
     console.log(id);
+    const [userRows] = await db.query(
+      `SELECT id, name, email FROM ${companyId}_users WHERE id = ?`,
+      [userId]
+    );
   
     const tables = [
       `${companyId}_user_app_access_log`,
@@ -105,6 +109,11 @@ export default asyncErrorHandler(async function handler(req, res) {
       totalBreaths,
       totalMeditations,
       totalMonitorSessions,
+      user: {
+        id: userId,
+        name: userRows[0]?.name || "", 
+        email: userRows[0]?.email || "",
+      },
       data: {
         userAppAccessLog: userAppAccessLogResult,
         heartRateSession: heartRateSessionResult,

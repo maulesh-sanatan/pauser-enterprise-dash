@@ -38,12 +38,12 @@ export default asyncErrorHandler(async function handler(req, res) {
             const result = await Promise.all(insert)
             if (result.length === data.length) {
                 res.status(200).json({
-                    status: true,
+                    success: true,
                     message: "Meditation data insert operation successfully",
                 });
             } else {
                 res.status(500).json({
-                    status: false,
+                    success: false,
                     message: "Meditation data failed operation",
                 });
             }

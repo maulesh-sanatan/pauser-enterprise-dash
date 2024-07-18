@@ -47,19 +47,19 @@ export default asyncErrorHandler(async function handler(req, res) {
       const result = await Promise.all(insert)
       if(result.length === data.length){
         res.status(200).json({
-          status: true,
+          success: true,
           message: "Breath data insert operation successfully",
         });
       }else{
         res.status(500).json({
-          status: false,
+          success: false,
           message: "Breath data failed operation",
         });
       }
       
     } catch (error) {
       console.error(error);
-      res.status(500).json({ status: false, message: "Internal Server Error" });
+      res.status(500).json({ success: false, message: "Internal Server Error" });
     }
   }
 });

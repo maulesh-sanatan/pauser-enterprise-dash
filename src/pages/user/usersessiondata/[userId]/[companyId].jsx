@@ -401,10 +401,12 @@ const ManageUserEdit = () => {
           >
             <div className="flex p-6 justify-between">
               <h3
-                className="font-semibold ms-2 text-xl "
+                className=" "
                 style={{ color: "#566A7F" }}
-              >
-                User
+              ><div className="flex flex-col">
+                  <div> <span className="font-bold mr-3">Name:</span>{counts?.user?.name}</div>
+                  <div> <span className="font-bold mr-3">Email:</span>{counts?.user?.email}</div>
+                </div>
               </h3>
               <p style={{ color: "#A1ACB8" }}>Defalt label</p>
             </div>

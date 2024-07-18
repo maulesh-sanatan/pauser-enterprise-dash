@@ -251,6 +251,27 @@ const User = () => {
                           >
                             CONTECT NO.
                           </th>
+                          <th
+                            scope="col"
+                            style={{ color: "#566A7F" }}
+                            className="px-6 py-5 text-start text-[16px] font-semibold "
+                          >
+                          TOTAL BREATH
+                          </th>
+                          <th
+                            scope="col"
+                            style={{ color: "#566A7F" }}
+                            className="px-6 py-5 text-start text-[16px] font-semibold "
+                          >
+                          TOTAL MEDITATION
+                          </th>
+                          <th
+                            scope="col"
+                            style={{ color: "#566A7F" }}
+                            className="px-6 py-5 text-start text-[16px] font-semibold "
+                          >
+                          TOTAL HEART RATE
+                          </th>
 
                           <th
                             scope="col"
@@ -283,6 +304,18 @@ const User = () => {
                           <td className="border border-gray-300 px-4 py-2">
                             {user.contact_no}
                           </td>
+                          <td className="border border-gray-300 px-4 py-2">
+                            {user.counts.breath}
+                          </td>
+                          
+                          <td className="border border-gray-300 px-4 py-2">
+                            {user.counts.meditation}
+                          </td>
+                          <td className="border border-gray-300 px-4 py-2">
+                            {user.counts.heartRate}
+                          </td>
+                          
+
                           <td className="border border-gray-300 px-4 py-2">
                             <button
                               onClick={() => toUserSesstion(user)}
