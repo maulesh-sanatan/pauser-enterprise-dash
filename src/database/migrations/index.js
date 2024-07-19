@@ -280,4 +280,3 @@ export async function createMonitorTable(tableName) {
     console.error("Error creating Monitor table:", error);
   }
 }
-
