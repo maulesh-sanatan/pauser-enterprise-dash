@@ -120,7 +120,6 @@ export default asyncErrorHandler(async function handler(req, res, file) {
       const meditationData = `${companyId}_meditation_data`;
       const UserTable = `${companyId}_users`;
       const monitorSessionData = `${companyId}_monitor_session_data`;
-     
 
       await createUserTable(UserTable);
       await createAppAccessLogTable(appAccess);
@@ -128,7 +127,6 @@ export default asyncErrorHandler(async function handler(req, res, file) {
       await createBreathDataTable(breathData);
       await createMeditationDataTable(meditationData);
       await createMonitorTable(monitorSessionData);
-     
 
       res.status(200).json({ status: true, user: insertedData, token });
     } catch (error) {

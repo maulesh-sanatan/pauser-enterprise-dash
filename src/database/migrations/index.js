@@ -7,18 +7,18 @@ export async function createAppUsageTable(tableName) {
         id INT AUTO_INCREMENT PRIMARY KEY,
         -- pauser_id INT DEFAULT NULL,
         user_id INT DEFAULT NULL,
-        appid VARCHAR(255),
-        app_name VARCHAR(255),
-        package_name VARCHAR(255),
-        time_used VARCHAR(255),
-        start_time VARCHAR(255),
-        end_time VARCHAR(255),
-        app_icon VARCHAR(255),
-        package_name_time_stamp VARCHAR(255),
-        -- state VARCHAR(255),
+        appid LONGTEXT,
+        app_name LONGTEXT,
+        package_name LONGTEXT,
+        time_used LONGTEXT,
+        start_time LONGTEXT,
+        end_time LONGTEXT,
+        app_icon LONGTEXT,
+        package_name_time_stamp LONGTEXT,
+        -- state LONGTEXT,
         -- is_updated INT DEFAULT NULL,
-        created_time_stamp VARCHAR(255),
-        last_updated_time_stamp VARCHAR(255),
+        created_time_stamp LONGTEXT,
+        last_updated_time_stamp LONGTEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       );
@@ -36,8 +36,8 @@ export async function createHRDumpTable(tableName) {
         CREATE TABLE ${tableName} (
           id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
           user_id INT DEFAULT NULL,
-          time_stamp VARCHAR(255),
-          currDate VARCHAR(255),
+          time_stamp LONGTEXT,
+          currDate LONGTEXT,
           heart_rate INT DEFAULT NULL,
           resting_heart INT DEFAULT NULL,
           average_heart INT DEFAULT NULL,
@@ -45,18 +45,18 @@ export async function createHRDumpTable(tableName) {
           step INT DEFAULT NULL,
           sugar INT DEFAULT NULL,
           blood_pressure INT DEFAULT NULL,
-          latitude VARCHAR(255),
-          longitude VARCHAR(255),
-          tag_name VARCHAR(255),
+          latitude LONGTEXT,
+          longitude LONGTEXT,
+          tag_name LONGTEXT,
           oxygen INT DEFAULT NULL,
-          weather VARCHAR(255),
+          weather LONGTEXT,
           weather_pause INT DEFAULT NULL,
-          pollen VARCHAR(255),
+          pollen LONGTEXT,
           pollen_pause INT DEFAULT NULL,
           state INT DEFAULT NULL,
           refresh_timeStamp INT DEFAULT NULL,
           pause INT DEFAULT NULL,
-          pauser_used_last_time VARCHAR(255),
+          pauser_used_last_time LONGTEXT,
           created_time_stamp BIGINT DEFAULT NULL,
           last_updated_time_stamp BIGINT DEFAULT NULL,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -74,8 +74,8 @@ export async function createAppAccessLogTable(tableName) {
     CREATE TABLE ${tableName} (
       id INT AUTO_INCREMENT PRIMARY KEY,
       user_id INT DEFAULT NULL,
-      activity_time VARCHAR(255) DEFAULT NULL,
-      activity_date VARCHAR(255) DEFAULT NULL,
+      activity_time LONGTEXT DEFAULT NULL,
+      activity_date LONGTEXT DEFAULT NULL,
       created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP NULL DEFAULT NULL
     )
@@ -96,19 +96,19 @@ export async function createHeartRateSessionsTable(tableName) {
         min_heart_rate VARCHAR(255) DEFAULT NULL,
         latitude VARCHAR(255) DEFAULT NULL,
         longitude VARCHAR(255) DEFAULT NULL,
-        mood_type VARCHAR(255) COLLATE utf8mb4_general_ci,
+        mood_type VARCHAR(255) DEFAULT NULL,
         step_count VARCHAR(255) DEFAULT NULL,
         pause_count VARCHAR(255) DEFAULT NULL,
         glucose VARCHAR(255) DEFAULT NULL,
         blood_pressure VARCHAR(255) DEFAULT NULL,
         oxygen VARCHAR(255) DEFAULT NULL,
         app_usage VARCHAR(255) DEFAULT NULL,
-        note VARCHAR(255) COLLATE utf8mb4_general_ci,
-        note_info_1 VARCHAR(255) COLLATE utf8mb4_general_ci,
-        tag_name VARCHAR(255) COLLATE utf8mb4_general_ci,
+        note VARCHAR(255) DEFAULT NULL,
+        note_info_1 VARCHAR(255) DEFAULT NULL,
+        tag_name VARCHAR(255) DEFAULT NULL,
         tag_id VARCHAR(255) DEFAULT NULL,
-        archive_reason VARCHAR(255) COLLATE utf8mb4_general_ci,
-        signal_hr_detail VARCHAR(255) COLLATE utf8mb4_general_ci,
+        archive_reason VARCHAR(255) DEFAULT NULL,
+        signal_hr_detail LONGTEXT DEFAULT NULL,
         is_active VARCHAR(255) DEFAULT NULL,
         is_deleted VARCHAR(255) DEFAULT NULL,
         is_updated VARCHAR(255) DEFAULT NULL,
@@ -121,42 +121,42 @@ export async function createHeartRateSessionsTable(tableName) {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         deleted_at TIMESTAMP NULL DEFAULT NULL
-    );
-    
-      `);
-    console.log("HR Dump table created successfully");
+      );
+    `);
+    console.log("Heart rate session table created successfully");
   } catch (error) {
     console.error("Error creating HR Dump table:", error);
   }
 }
+
 export async function createBreathDataTable(tableName) {
   try {
     await db.query(`
     CREATE TABLE ${tableName} (
       id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT DEFAULT NULL,
-    breathId LONGTEXT,
-    breath_perform_time LONGTEXT,
-    breath_start_hr LONGTEXT,
-    breath_end_hr LONGTEXT,
-    breath_low_hr LONGTEXT,
-    breath_day_avg_hr LONGTEXT,
-    breath_avg_hr LONGTEXT,
-    breath_time LONGTEXT,
-    breath_type LONGTEXT,
-    breath_pattern LONGTEXT,
-    breath_cycle LONGTEXT,
-    breath_cycle_length LONGTEXT,
-    breath_inhale LONGTEXT,
-    breath_exhale LONGTEXT,
-    breath_hold LONGTEXT,
-    dump_hr_details LONGTEXT,
-    prana_flow_details LONGTEXT,
-    is_breath_finished LONGTEXT,
-    is_updated LONGTEXT,
-    time_stamp LONGTEXT,
-    created_time_stamp LONGTEXT,
-    last_updated_time_stamp LONGTEXT,
+    breathId VARCHAR(255) DEFAULT NULL,
+    breath_perform_time VARCHAR(255) DEFAULT NULL,
+    breath_start_hr VARCHAR(255) DEFAULT NULL,
+    breath_end_hr VARCHAR(255) DEFAULT NULL,
+    breath_low_hr VARCHAR(255) DEFAULT NULL,
+    breath_day_avg_hr VARCHAR(255) DEFAULT NULL,
+    breath_avg_hr VARCHAR(255) DEFAULT NULL,
+    breath_time VARCHAR(255) DEFAULT NULL,
+    breath_type VARCHAR(255) DEFAULT NULL,
+    breath_pattern VARCHAR(255) DEFAULT NULL,
+    breath_cycle VARCHAR(255) DEFAULT NULL,
+    breath_cycle_length VARCHAR(255) DEFAULT NULL,
+    breath_inhale VARCHAR(255) DEFAULT NULL,
+    breath_exhale VARCHAR(255) DEFAULT NULL,
+    breath_hold VARCHAR(255) DEFAULT NULL,
+    dump_hr_details LONGTEXT DEFAULT NULL,
+    prana_flow_details LONGTEXT DEFAULT NULL,
+    is_breath_finished VARCHAR(255) DEFAULT NULL,
+    is_updated VARCHAR(255) DEFAULT NULL,
+    time_stamp VARCHAR(255) DEFAULT NULL,
+    created_time_stamp VARCHAR(255) DEFAULT NULL,
+    last_updated_time_stamp VARCHAR(255) DEFAULT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL DEFAULT NULL,
     deleted_at TIMESTAMP NULL DEFAULT NULL
@@ -164,7 +164,7 @@ export async function createBreathDataTable(tableName) {
   
     
       `);
-    console.log("HR Dump table created successfully");
+    console.log("Breath table created successfully");
   } catch (error) {
     console.error("Error creating HR Dump table:", error);
   }
@@ -175,25 +175,25 @@ export async function createMeditationDataTable(tableName) {
    
     CREATE TABLE ${tableName} (
       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  user_id INT DEFAULT NULL,
-  meditationId VARCHAR(255) DEFAULT NULL,
-  meditation_perform_time VARCHAR(255) DEFAULT NULL,
-  meditation_start_hr VARCHAR(255) DEFAULT NULL,
-  meditation_end_hr VARCHAR(255) DEFAULT NULL,
-  meditation_low_hr VARCHAR(255) DEFAULT NULL,
-  meditation_day_avg_hr VARCHAR(255) DEFAULT NULL,
-  meditation_avg_hr VARCHAR(255) DEFAULT NULL,
-  meditation_time VARCHAR(255) DEFAULT NULL,
-  meditation_type VARCHAR(255) DEFAULT NULL,
-  dump_hr_details VARCHAR(255) DEFAULT NULL,
-  is_meditation_finished VARCHAR(255) DEFAULT NULL,
-  is_updated VARCHAR(255) DEFAULT NULL,
-  time_stamp VARCHAR(255) DEFAULT NULL,
-  created_time_stamp VARCHAR(255) DEFAULT NULL,
-  last_updated_time_stamp VARCHAR(255) DEFAULT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  delete_at TIMESTAMP DEFAULT NULL
+      user_id INT DEFAULT NULL,
+      meditationId VARCHAR(255) DEFAULT NULL,
+      meditation_perform_time VARCHAR(255) DEFAULT NULL,
+      meditation_start_hr VARCHAR(255) DEFAULT NULL,
+      meditation_end_hr VARCHAR(255) DEFAULT NULL,
+      meditation_low_hr VARCHAR(255) DEFAULT NULL,
+      meditation_day_avg_hr VARCHAR(255) DEFAULT NULL,
+      meditation_avg_hr VARCHAR(255) DEFAULT NULL,
+      meditation_time VARCHAR(255) DEFAULT NULL,
+      meditation_type VARCHAR(255) DEFAULT NULL,
+      dump_hr_details LONGTEXT DEFAULT NULL,
+      is_meditation_finished VARCHAR(255) DEFAULT NULL,
+      is_updated VARCHAR(255) DEFAULT NULL,
+      time_stamp VARCHAR(255) DEFAULT NULL,
+      created_time_stamp VARCHAR(255) DEFAULT NULL,
+      last_updated_time_stamp VARCHAR(255) DEFAULT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      delete_at TIMESTAMP DEFAULT NULL
       );
       `);
 
@@ -209,10 +209,10 @@ export async function createUserTable(tableName) {
     CREATE TABLE ${tableName} (
       id INT AUTO_INCREMENT PRIMARY KEY,
       company_id INT,
-      name VARCHAR(255) DEFAULT NULL,
+      name LONGTEXT DEFAULT NULL,
       username VARCHAR(50) DEFAULT NULL,
-      email VARCHAR(255) DEFAULT NULL,
-      password VARCHAR(255) DEFAULT NULL,
+      email LONGTEXT DEFAULT NULL,
+      password LONGTEXT DEFAULT NULL,
       mobile_no varchar(13) DEFAULT NULL,
       age varchar(10) DEFAULT NULL,
       weight varchar(50) DEFAULT NULL,
@@ -223,17 +223,17 @@ export async function createUserTable(tableName) {
       last_hr_entry int DEFAULT NULL,
       last_hr_entry_timeStamp int DEFAULT NULL,
       refresh_timeStamp int DEFAULT NULL,
-      pauses_goal varchar(255) DEFAULT NULL,
-      duration_goal varchar(255) DEFAULT NULL,
-      company_name varchar(255) DEFAULT NULL,
-      watch_name varchar(255) DEFAULT NULL,
+      pauses_goal LONGTEXT DEFAULT NULL,
+      duration_goal LONGTEXT DEFAULT NULL,
+      company_name LONGTEXT DEFAULT NULL,
+      watch_name LONGTEXT DEFAULT NULL,
       registered_time timestamp NULL DEFAULT NULL,
       login_time timestamp NULL DEFAULT NULL,
       last_seen bigint DEFAULT NULL,
       contact_no VARCHAR(15) DEFAULT NULL,
       role VARCHAR(50) DEFAULT NULL,
       status VARCHAR(50) DEFAULT NULL,
-      domain_name VARCHAR(255) DEFAULT NULL,
+      domain_name LONGTEXT DEFAULT NULL,
       login_type varchar(50) DEFAULT NULL,
       platform varchar(50) DEFAULT NULL,
       updated_by VARCHAR(50) DEFAULT NULL,
@@ -251,34 +251,33 @@ export async function createUserTable(tableName) {
 export async function createMonitorTable(tableName) {
   try {
     await db.query(`
-   
-    CREATE TABLE ${tableName} (
-      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      user_id INT DEFAULT NULL,
-      sessionId LONGTEXT DEFAULT NULL,
-      session_perform_time LONGTEXT DEFAULT NULL,
-      session_start_hr LONGTEXT DEFAULT NULL,
-      session_end_hr LONGTEXT DEFAULT NULL,
-      session_low_hr LONGTEXT DEFAULT NULL,
-      session_high_hr LONGTEXT DEFAULT NULL,
-      session_avg_hr LONGTEXT DEFAULT NULL,
-      session_day_avg_hr LONGTEXT DEFAULT NULL,
-      session_time LONGTEXT DEFAULT NULL,
-      session_name LONGTEXT COLLATE utf8mb4_general_ci DEFAULT NULL,
-      row_hr_details LONGTEXT COLLATE utf8mb4_general_ci DEFAULT NULL,
-      is_archived LONGTEXT DEFAULT NULL,
-      is_updated LONGTEXT DEFAULT NULL,
-      time_stamp LONGTEXT DEFAULT NULL,
-      created_time_stamp LONGTEXT DEFAULT NULL,
-      last_updated_time_stamp LONGTEXT DEFAULT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      deleted_at TIMESTAMP NULL DEFAULT NULL
-    );
-    
-      `);
-    console.log("HR Dump table created successfully");
+      CREATE TABLE ${tableName} (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        user_id INT DEFAULT NULL,
+        sessionId VARCHAR(255) DEFAULT NULL,
+        session_perform_time VARCHAR(255) DEFAULT NULL,
+        session_start_hr VARCHAR(255) DEFAULT NULL,
+        session_end_hr VARCHAR(255) DEFAULT NULL,
+        session_low_hr VARCHAR(255) DEFAULT NULL,
+        session_high_hr VARCHAR(255) DEFAULT NULL,
+        session_avg_hr VARCHAR(255) DEFAULT NULL,
+        session_day_avg_hr VARCHAR(255) DEFAULT NULL,
+        session_time VARCHAR(255) DEFAULT NULL,
+        session_name VARCHAR(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+        row_hr_details LONGTEXT COLLATE utf8mb4_general_ci DEFAULT NULL,
+        is_archived VARCHAR(255) DEFAULT NULL,
+        is_updated VARCHAR(255) DEFAULT NULL,
+        time_stamp VARCHAR(255) DEFAULT NULL,
+        created_time_stamp VARCHAR(255) DEFAULT NULL,
+        last_updated_time_stamp VARCHAR(255) DEFAULT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        deleted_at TIMESTAMP NULL DEFAULT NULL
+      );
+    `);
+    console.log("Monitor table created successfully");
   } catch (error) {
-    console.error("Error creating HR Dump table:", error);
+    console.error("Error creating Monitor table:", error);
   }
 }
+
