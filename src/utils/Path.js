@@ -23,4 +23,5 @@ export const PATH = {
   MANAGEUSER: "/manageuser/list",
   MANAGEUSERLIST: "/manageuser/list",
   RATINGLIST: "/ratinglist",
+  USERRECORDS:"/users"
 };

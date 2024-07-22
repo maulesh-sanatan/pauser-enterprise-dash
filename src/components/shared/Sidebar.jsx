@@ -423,6 +423,34 @@ const Sidebar = () => {
                   </Link>
                 </div>
               </li>
+              <li
+                className={
+                  router.pathname == PATH.USER
+                    ? `text-[18px] text-rgba font-bold  rounded-xl border-r-4 border-r-orange-400`
+                    : "text-[18px] font-normal"
+                }
+                style={{
+                  backgroundColor:
+                    router.pathname === PATH.USERRECORDS ? "#fcb099" : "inherit",
+                }}
+              >
+                <div className="flex flex-row items-center h-12  hover:text-gray-800 cursor-pointer">
+                  <Link
+                    href={PATH.USERRECORDS}
+                    className="flex flex-row items-center h-12 t  hover:text-gray-800"
+                  >
+                    <span className="inline-flex items-center justify-center h-12 w-12 text-lg ">
+                      <Image
+                        src="/images/building.png"
+                        width={25}
+                        height={25}
+                        alt=""
+                      />
+                    </span>
+                    <span className="">User records</span>
+                  </Link>
+                </div>
+              </li>
 
               <li
               //   className={

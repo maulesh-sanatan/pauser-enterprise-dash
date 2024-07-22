@@ -135,5 +135,6 @@ cron/config
 cron/uploads
 frontend/build/
 src/database/config.js
+src/database/config2.js
 
 

@@ -34,6 +34,7 @@ function MyApp({ Component, pageProps }) {
 
   const isLoginPage = router.pathname === "/login";
   const isRatingPage = router.pathname.startsWith("/ratings");
+  const isUserRecord = router.pathname.startsWith("/users");
 
   return (
     <>
@@ -41,9 +42,10 @@ function MyApp({ Component, pageProps }) {
       <ErrorBoundary>
         <MainLayout>
           <PrivateRoute>
-            {!isLoginPage && !isRatingPage && pageProps.statusCode !== 404 && (
-              <Sidebar />
-            )}
+            {!isLoginPage &&
+              !isRatingPage &&
+              !isUserRecord &&
+              pageProps.statusCode !== 404 && <Sidebar />}
             {pageProps.statusCode === 404 ? (
               <NotFoundPage />
             ) : (
