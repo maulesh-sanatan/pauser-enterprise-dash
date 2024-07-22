@@ -33,41 +33,43 @@ export async function createAppUsageTable(tableName) {
 export async function createHRDumpTable(tableName) {
   try {
     await db.query(`
-        CREATE TABLE ${tableName} (
-          id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-          user_id INT DEFAULT NULL,
-          time_stamp LONGTEXT,
-          currDate LONGTEXT,
-          heart_rate INT DEFAULT NULL,
-          resting_heart INT DEFAULT NULL,
-          average_heart INT DEFAULT NULL,
-          tag_id INT DEFAULT NULL,
-          step INT DEFAULT NULL,
-          sugar INT DEFAULT NULL,
-          blood_pressure INT DEFAULT NULL,
-          latitude LONGTEXT,
-          longitude LONGTEXT,
-          tag_name LONGTEXT,
-          oxygen INT DEFAULT NULL,
-          weather LONGTEXT,
-          weather_pause INT DEFAULT NULL,
-          pollen LONGTEXT,
-          pollen_pause INT DEFAULT NULL,
-          state INT DEFAULT NULL,
-          refresh_timeStamp INT DEFAULT NULL,
-          pause INT DEFAULT NULL,
-          pauser_used_last_time LONGTEXT,
-          created_time_stamp BIGINT DEFAULT NULL,
-          last_updated_time_stamp BIGINT DEFAULT NULL,
-          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        )
-      `);
+      CREATE TABLE ${tableName} (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT DEFAULT NULL,
+        hrDumpId VARCHAR(255) DEFAULT NULL,
+        time_stamp VARCHAR(255) DEFAULT NULL,
+        currDate VARCHAR(255) DEFAULT NULL,
+        heart_rate LONGTEXT DEFAULT NULL,
+        resting_heart LONGTEXT DEFAULT NULL,
+        average_heart LONGTEXT DEFAULT NULL,
+        tag_id LONGTEXT DEFAULT NULL,
+        step LONGTEXT DEFAULT NULL,
+        sugar LONGTEXT DEFAULT NULL,
+        blood_pressure LONGTEXT DEFAULT NULL,
+        latitude VARCHAR(255) DEFAULT NULL,
+        longitude VARCHAR(255) DEFAULT NULL,
+        tag_name VARCHAR(255) DEFAULT NULL,
+        oxygen LONGTEXT DEFAULT NULL,
+        weather VARCHAR(255) DEFAULT NULL,
+        weather_pause LONGTEXT DEFAULT NULL,
+        pollen LONGTEXT DEFAULT NULL,
+        pollen_pause LONGTEXT DEFAULT NULL,
+        state LONGTEXT DEFAULT NULL,
+        refresh_timeStamp LONGTEXT DEFAULT NULL,
+        pause LONGTEXT DEFAULT NULL,
+        pauser_used_last_time VARCHAR(255) DEFAULT NULL,
+        created_time_stamp VARCHAR(255) DEFAULT NULL,
+        last_updated_time_stamp VARCHAR(255) DEFAULT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      )
+    `);
     console.log("HR Dump table created successfully");
   } catch (error) {
     console.error("Error creating HR Dump table:", error);
   }
 }
+
 export async function createAppAccessLogTable(tableName) {
   try {
     await db.query(`

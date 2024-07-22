@@ -152,20 +152,32 @@ const Dashboard = () => {
 
     if (ctx && counts?.data?.userAppAccessLog) {
       const dates = counts.data.userAppAccessLog.map(
-        (entry) => new Date(entry.created_at)
+        (entry) => new Date(entry.activity_date).toISOString().split("T")[0]
       );
-      const countsData = counts.data.userAppAccessLog.map((entry) => entry.id);
 
-      var myChart = new Chart(ctx, {
-        type: "line",
+      const countsData = dates.reduce((acc, date) => {
+        acc[date] = (acc[date] || 0) + 1;
+        return acc;
+      }, {});
+
+      const sortedDates = Object.keys(countsData).sort();
+      const sortedCounts = sortedDates.map((date) => countsData[date]);
+
+      const myChart = new Chart(ctx, {
+        type: "bar",
         data: {
-          labels: dates.map((date) => date.toLocaleDateString()),
+          labels: sortedDates.map((date) =>
+            new Date(date).toLocaleDateString()
+          ),
           datasets: [
             {
-              data: countsData,
+              data: sortedCounts,
               label: "User App Access Count",
               borderColor: "#fe825b",
               backgroundColor: "#fe825b",
+              borderWidth: 1,
+              hoverBorderColor: "#ffffff",
+              hoverBackgroundColor: "#ff6f61",
               fill: false,
             },
           ],
@@ -197,6 +209,7 @@ const Dashboard = () => {
       });
     }
   }, [counts]);
+
   // REGISTERED USER COUNT CHART
   useEffect(() => {
     console.log("Counts:", counts);
@@ -227,7 +240,9 @@ const Dashboard = () => {
             {
               data: userCountsByDate,
               label: "User Creation Count",
-              backgroundColor: "#fe825b",
+              borderColor: "#fe825b",
+              backgroundColor: "rgba(254, 130, 91, 0.2)",
+              fill: true,
             },
           ],
         },
@@ -238,6 +253,13 @@ const Dashboard = () => {
                 display: true,
                 text: "Date",
               },
+              type: "time",
+              time: {
+                unit: "day",
+                displayFormats: {
+                  day: "MMM D",
+                },
+              },
             },
             y: {
               title: {
@@ -245,6 +267,9 @@ const Dashboard = () => {
                 text: "Count",
               },
               beginAtZero: true,
+
+              suggestedMin: 0,
+              suggestedMax: Math.max(...userCountsByDate) + 1,
             },
           },
         },
@@ -256,9 +281,9 @@ const Dashboard = () => {
   useEffect(() => {
     const ctx = document.getElementById("monitor");
 
-    if (ctx) {
-      const sessionCreationDates = counts?.data?.monitorSessionData.map(
-        (session) => new Date(session.created_at)
+    if (ctx && counts?.data?.monitorSessionData) {
+      const sessionCreationDates = counts.data.monitorSessionData.map(
+        (session) => new Date(parseInt(session.time_stamp))
       );
 
       const countsData = sessionCreationDates.reduce((acc, date) => {
@@ -289,6 +314,13 @@ const Dashboard = () => {
                 display: true,
                 text: "Date",
               },
+              type: "time",
+              time: {
+                unit: "day",
+                displayFormats: {
+                  day: "MMM D",
+                },
+              },
             },
             y: {
               title: {
@@ -309,7 +341,7 @@ const Dashboard = () => {
 
     if (ctx && counts?.data?.breathData) {
       const breathCreationDates = counts?.data?.breathData.map(
-        (entry) => new Date(entry.created_at)
+        (entry) => new Date(parseInt(entry.time_stamp))
       );
 
       const countsData = breathCreationDates?.reduce((acc, date) => {
@@ -360,7 +392,7 @@ const Dashboard = () => {
 
     if (ctx && counts?.data?.meditationData) {
       const meditationCreationDates = counts.data.meditationData.map(
-        (entry) => new Date(entry.created_at)
+        (entry) => new Date(parseInt(entry.time_stamp))
       );
 
       const countsData = meditationCreationDates.reduce((acc, date) => {
@@ -375,14 +407,16 @@ const Dashboard = () => {
       );
 
       var myChart = new Chart(ctx, {
-        type: "line",
+        type: "bar",
         data: {
           labels: sortedDates,
           datasets: [
             {
               data: meditationCountsByDate,
               label: "Meditation Data Count",
+              borderColor: "#fe825b",
               backgroundColor: "#fe825b",
+              fill: false,
             },
           ],
         },
@@ -392,6 +426,13 @@ const Dashboard = () => {
               title: {
                 display: true,
                 text: "Date",
+              },
+              type: "time",
+              time: {
+                unit: "day",
+                displayFormats: {
+                  day: "MMM D",
+                },
               },
             },
             y: {
@@ -413,7 +454,7 @@ const Dashboard = () => {
 
     if (ctx && counts?.data?.heartRateSession) {
       const heartRateCreationDates = counts.data.heartRateSession.map(
-        (entry) => new Date(entry.created_at)
+        (entry) => new Date(parseInt(entry.time_stamp))
       );
 
       const countsData = heartRateCreationDates.reduce((acc, date) => {
@@ -433,9 +474,7 @@ const Dashboard = () => {
             {
               data: heartRateCountsByDate,
               label: "Heart Rate Data Count",
-              borderColor: "#fe825b",
               backgroundColor: "#fe825b",
-              fill: false,
             },
           ],
         },
@@ -445,6 +484,13 @@ const Dashboard = () => {
               title: {
                 display: true,
                 text: "Date",
+              },
+              type: "time",
+              time: {
+                unit: "day",
+                displayFormats: {
+                  day: "MMM D",
+                },
               },
             },
             y: {

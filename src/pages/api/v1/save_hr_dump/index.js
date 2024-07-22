@@ -40,28 +40,21 @@ export default asyncErrorHandler(async function handler(req, res) {
       });
       const tableName = `${cid}_hr_dump`;
       const insertOrderDetailQuery = `INSERT INTO ${tableName} SET ?`;
-      let successCount = 0;
-      let failure = false;
-      dumpList.forEach((breath) => {
-        db.query(insertOrderDetailQuery, breath, (error, breathResult) => {
-          if (error) {
-            console.log(error);
-            failure = true;
-            return res.status(500).json({
-              success: false,
-              message: `${successCount} hr dump data insert operation failed`,
-            });
-          } else {
-            successCount++;
-            if (successCount === dumpList.length && !failure) {
-              return res.status(200).json({
-                success: true,
-                message: `${successCount} hr dump data insert operation successfully`,
-              });
-            }
-          }
-        });
+      const insert = dumpList.map(async (breath) => {
+        return await db.query(insertOrderDetailQuery, breath);
       });
+      const result = await Promise.all(insert);
+      if (result.length === data.length) {
+        res.status(200).json({
+          success: true,
+          message: "user app access log insert operation successfully",
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: "user app access log operation failed.",
+        });
+      }
     } catch (error) {
       console.error(error);
       res
