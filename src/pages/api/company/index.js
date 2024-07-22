@@ -1,5 +1,6 @@
 import {
   createAppAccessLogTable,
+  createAppUsageTable,
   createBreathDataTable,
   createHRDumpTable,
   createHeartRateSessionsTable,
@@ -62,7 +63,7 @@ export default asyncErrorHandler(async function handler(req, res, file) {
     try {
       const query = `
         SELECT email, username, company_identity 
-        FROM pauser_enterprise.company 
+        FROM company 
         WHERE email = ? OR username = ? OR company_identity = ?
       `;
       const [existingUser] = await db.query(query, [
@@ -121,6 +122,7 @@ export default asyncErrorHandler(async function handler(req, res, file) {
       const UserTable = `${companyId}_users`;
       const monitorSessionData = `${companyId}_monitor_session_data`;
       const hrDumpData = `${companyId}_hr_dump`;
+      const appUsageData = `${companyId}_app_usage`;
 
       await createUserTable(UserTable);
       await createAppAccessLogTable(appAccess);
@@ -129,6 +131,7 @@ export default asyncErrorHandler(async function handler(req, res, file) {
       await createMeditationDataTable(meditationData);
       await createMonitorTable(monitorSessionData);
       await createHRDumpTable(hrDumpData);
+      await createAppUsageTable(appUsageData);
 
       res.status(200).json({ status: true, user: insertedData, token });
     } catch (error) {
