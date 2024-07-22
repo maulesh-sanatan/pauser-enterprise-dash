@@ -47,12 +47,12 @@ export default asyncErrorHandler(async function handler(req, res) {
       if (result.length === data.length) {
         res.status(200).json({
           success: true,
-          message: "user app access log insert operation successfully",
+          message: "HR dump log insert operation successfully",
         });
       } else {
         res.status(500).json({
           success: false,
-          message: "user app access log operation failed.",
+          message: "HR dump access log operation failed.",
         });
       }
     } catch (error) {
